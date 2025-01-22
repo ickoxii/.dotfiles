@@ -1,6 +1,6 @@
-#==============================================================================#
+#=============================
 # >>>> p10k configuration >>>>
-#==============================================================================#
+#=============================
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.config/zsh/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -17,9 +17,9 @@ source $ZDOTDIR/.oh-my-zshrc
 ZSH_THEME="common"
 
 
-#==============================================================================#
+#============================
 # >>>> My Configurations >>>>
-#==============================================================================#
+#============================
 
 # Turn off the god-forsaken beeping
 unsetopt BEEP
@@ -41,9 +41,12 @@ if [ -f '/Users/ickoxii/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/ickoxii
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/ickoxii/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/ickoxii/google-cloud-sdk/completion.zsh.inc'; fi
 
-#==============================================================================#
+# Dracula flow baby
+drac
+
+#========================
 # >>>> Env Variables >>>>
-#==============================================================================#
+#========================
 
 # Display for x11 (xquartz) GUI docker containers
 set DISPLAY=10.1.30.1:0.0
@@ -58,16 +61,27 @@ fi
 # export TERM="xterm-256color"
 # export CLICOLOR=1
 
-#==============================================================================#
+#====================
 # >>>> Functions >>>>
-#==============================================================================#
+#====================
 
 # The following two functions are related to key press and holds on macOS.
 # Typically when a key is held, it will bring up an option menu with
 # various accents (i.e. holding 'e' might show options for è, é, ê, ë).
 noSpecChar() {
-    defaults write -g ApplePressAndHoldEnabled -bool false
+  defaults write -g ApplePressAndHoldEnabled -bool false
 }
 setSpecChar() {
-    defaults write -g ApplePressAndHoldEnabled -bool true
+  defaults write -g ApplePressAndHoldEnabled -bool true
 }
+
+tmux_sessionizer_widget() {
+  ~/.local/bin/tmux-sessionizer
+}
+zle -N tmux_sessionizer_widget
+
+# ==================
+# >>>> Keybinds >>>>
+# ==================
+
+bindkey '^F' tmux_sessionizer_widget

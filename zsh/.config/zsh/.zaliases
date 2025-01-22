@@ -54,6 +54,9 @@ alias new-daily-note='touch $(date +%Y%m%d).md'
 # Run previous command with sudo
 alias ffs='sudo $(fc -ln -1)'
 
+# If accidentally cd'ing into a file, cd into the directory instead
+alias cdir='cd "${_%/*}"'
+
 # ====================
 # Directory Navigation
 # ====================
@@ -82,7 +85,7 @@ alias browser='open -a Firefox'
 alias fpw='/Applications/Firefox.app/Contents/MacOS/firefox -private-window'
 
 # Microsoft Word
-alias winword='open -a Microsoft\ Word'
+alias word='open -a Microsoft\ Word'
 
 # Microsoft OneNote
 alias onenote='open -a Microsoft\ OneNote'
