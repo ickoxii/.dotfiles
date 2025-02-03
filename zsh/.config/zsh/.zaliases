@@ -33,6 +33,9 @@ alias bp='pass show -c email/microsoft/baylor'
 # List all tmux sessions
 alias tls='tmux ls'
 
+# Kill all detached sessions
+alias tks='tmux list-sessions -F "#{session_attached} #{session_id}" | tmux kill-session -t $(awk "/^0/{print $2}")'
+
 # Rename session
 alias trs='tmux rename-session -t'
 
@@ -49,7 +52,7 @@ alias gst='git status'
 alias refresh-whiskers-icon='rm /var/folders/*/*/*/com.apple.dock.iconcache; killall Dock'
 
 # New daily note
-alias new-daily-note='touch $(date +%Y%m%d).md'
+alias daily='touch $(date +%Y%m%d).md'
 
 # Run previous command with sudo
 alias ffs='sudo $(fc -ln -1)'
