@@ -33,14 +33,14 @@ alias bp='pass show -c email/microsoft/baylor'
 # List all tmux sessions
 alias tls='tmux ls'
 
-# Kill all detached sessions
-alias tks='tmux list-sessions -F "#{session_attached} #{session_id}" | tmux kill-session -t $(awk "/^0/{print $2}")'
+# Cleanly and gracefully kill all open tmux sessions
+alias tks='tmux kill-server'
+
+# Kill all other sessions exist for the currently attached session
+alias tksa='tmux kill-session -a'
 
 # Rename session
 alias trs='tmux rename-session -t'
-
-# Attach to 0
-alias ta0='tmux attach -t 0'
 
 # Attach to existing tmux sessions
 alias ta='tmux attach -t $(tmux ls | tr ":" " " | awk "{print \$1}" | fzf)'
