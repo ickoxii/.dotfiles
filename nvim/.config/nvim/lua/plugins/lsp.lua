@@ -1,8 +1,8 @@
 return {
   "neovim/nvim-lspconfig",
   dependencies = {
-    "williamboman/mason.nvim", version = "v1.5.0",
-    "williamboman/mason-lspconfig.nvim", version = "v0.1.3",
+    "williamboman/mason.nvim",--[[ version = "v1.5.0",]]--
+    "williamboman/mason-lspconfig.nvim",--[[ version = "v0.1.3",]]--
     "hrsh7th/cmp-nvim-lsp",
     "hrsh7th/cmp-buffer",
     "hrsh7th/cmp-path",
@@ -23,20 +23,14 @@ return {
       cmp_lsp.default_capabilities())
 
     require("fidget").setup({})
-
-    -- Setup Mason for lsp package managing
     require("mason").setup()
     require("mason-lspconfig").setup({
       ensure_installed = {
-        -- "ast_grep",
         "emmet_language_server",
-        "eslint",
-        "jsonls",
         "lua_ls",
         "marksman",
         "pyright",
         "rust_analyzer",
-        "ts_ls",
       },
       handlers = {
         function(server_name) -- default handler (optional)
@@ -61,30 +55,12 @@ return {
       }
     })
 
-    -- Java lsp setup
-    require('java').setup({})
-    require 'lspconfig'.jdtls.setup {}
-
-    -- Clang lsp setup
+    -- require('java').setup({})
+    -- require 'lspconfig'.jdtls.setup {}
     require 'lspconfig'.clangd.setup {}
+    require 'lspconfig'.pyright.setup {}
+    require 'lspconfig'.rust_analyzer.setup {}
 
-    -- Pyright lsp setup
-    require 'lspconfig'.pyright.setup {
-      --[[
-      on_attach = on_attach,
-      settings = {
-        python = {
-          analysis = {
-            typeCheckingMode = "strict",
-            autoSearchPaths = true,
-            useLibraryCodeForTypes = true,
-          },
-        },
-      },
-      ]]--
-    }
-
-    -- Jdtls lsp setup
     --[[
     require 'lspconfig'.jdtls.setup {
       settings = {
@@ -108,14 +84,9 @@ return {
     require 'lspconfig'.emmet_language_server.setup({
       filetypes = {
         "css",
-        -- "eruby",
         "html",
         "javascript",
         "javascriptreact",
-        -- "less",
-        -- "sass",
-        -- "scss",
-        -- "pug",
         "typescript",
         "typescriptreact"
       },

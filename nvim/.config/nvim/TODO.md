@@ -1,2 +1,2 @@
-* Migrate to nvim-jdtls plugin
-    * <https://github.com/mfussenegger/nvim-jdtls>
+- Figure out java lsp (esp for springbook)
+- Fix markdown preview plugin
