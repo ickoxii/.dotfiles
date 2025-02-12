@@ -1,11 +1,8 @@
  /**
-  * file:
-  * author: Icko Iben
-  * course: CSI 3336
-  * due date:
-  *
-  * date modified:      MM/DD/YYYY
-  *   -
-  *
-  * Description
+  * Author: Icko Iben
+  * Assignment Title:
+  * Assignment Description:
+  * Due Date:
+  * Date Created:
+  * Date Last Modified:
   * */
