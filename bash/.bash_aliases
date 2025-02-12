@@ -1,8 +1,0 @@
-alias ls='ls --color=auto'
-alias la='ls -lA'
-alias ll='ls -l'
-alias l='ls -lA'
-alias paps='paps --cpi=13.33 --font="Monospace 10" --left-margin=36 --right-margin=36'
-alias gccarg='gcc -Wall -Werror -Wextra -Wpedantic --std=gnu89'
-alias grep='grep --color=auto'
-alias gst='git status'
