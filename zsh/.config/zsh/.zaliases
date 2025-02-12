@@ -60,6 +60,9 @@ alias ffs='sudo $(fc -ln -1)'
 # If accidentally cd'ing into a file, cd into the directory instead
 alias cdir='cd "${_%/*}"'
 
+# Reload yabai after changes to configutation
+alias reload-yabai='launchctl unload ~/Library/LaunchAgents/yabai.plist && launchctl load ~/Library/LaunchAgents/yabai.plist'
+
 # ====================
 # Directory Navigation
 # ====================
