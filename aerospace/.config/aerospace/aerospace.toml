@@ -95,7 +95,7 @@ ctrl-b = '''exec-and-forget open -na Firefox'''
 ctrl-t = '''exec-and-forget open -na Kitty'''
 
 # fullscreen
-ctrl-alt-f = 'fullscreen on'
+alt-shift-f = 'fullscreen'
 
 [workspace-to-monitor-force-assignment]
 10 = '^built-in retina display$'
