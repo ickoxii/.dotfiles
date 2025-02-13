@@ -42,7 +42,7 @@ if [ -f '/Users/ickoxii/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/ickoxii
 if [ -f '/Users/ickoxii/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/ickoxii/google-cloud-sdk/completion.zsh.inc'; fi
 
 # Dracula flow baby
-drac
+# drac
 
 #========================
 # >>>> Env Variables >>>>
