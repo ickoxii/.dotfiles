@@ -1,0 +1,143 @@
+# ⎧                                        ⎫
+# ⎨  Startup                               ⎬
+# ⎩                                        ⎭
+# You can use it to add commands that run after login to macOS user session.
+# 'start-at-login' needs to be 'true' for 'after-login-command' to work
+# Available commands: https://nikitabobko.github.io/AeroSpace/commands
+after-login-command = []
+
+# You can use it to add commands that run after AeroSpace startup.
+# 'after-startup-command' is run after 'after-login-command'
+# Available commands : https://nikitabobko.github.io/AeroSpace/commands
+after-startup-command = []
+
+start-at-login = false
+
+# ⎧                                        ⎫
+# ⎨  Globals                               ⎬
+# ⎩                                        ⎭
+enable-normalization-flatten-containers = false
+enable-normalization-opposite-orientation-for-nested-containers = false
+accordion-padding = 30
+default-root-container-layout = 'tiles'
+key-mapping.preset = 'qwerty'
+
+# Possible values: horizontal|vertical|auto
+# 'auto' means: wide monitor (anything wider than high) gets horizontal orientation,
+#               tall monitor (anything higher than wide) gets vertical orientation
+default-root-container-orientation = 'auto'
+
+# ⎧                                        ⎫
+# ⎨  Padding                               ⎬
+# ⎩                                        ⎭
+# Gaps between windows (inner-*) and between monitor edges (outer-*).
+# Possible values:
+# - Constant:     gaps.outer.top = 8
+# - Per monitor:  gaps.outer.top = [{ monitor.main = 16 }, { monitor."some-pattern" = 32 }, 24]
+#                 In this example, 24 is a default value when there is no match.
+#                 Monitor pattern is the same as for 'workspace-to-monitor-force-assignment'.
+#                 See: https://nikitabobko.github.io/AeroSpace/guide#assign-workspaces-to-monitors
+[gaps]
+inner.horizontal = 10
+inner.vertical =   10
+outer.left =       10
+outer.bottom =     10
+outer.top =        10
+outer.right =      10
+
+
+# ⎧                                        ⎫
+# ⎨  Main Mode Keymaps                     ⎬
+# ⎩                                        ⎭
+[mode.main.binding]
+
+# toggle between splits
+cmd-slash = 'layout tiles horizontal vertical'
+
+# focus a tile
+cmd-h = 'focus left'
+cmd-j = 'focus down'
+cmd-k = 'focus up'
+cmd-l = 'focus right'
+
+# move a tile
+cmd-shift-h = 'move left'
+cmd-shift-j = 'move down'
+cmd-shift-k = 'move up'
+cmd-shift-l = 'move right'
+
+# tile smart resizing
+cmd-shift-minus = 'resize smart -50'
+cmd-shift-equal = 'resize smart +50'
+
+# switch to workspaces
+cmd-1 = 'workspace 1' # browser - work
+cmd-2 = 'workspace 2' # terminal
+cmd-3 = 'workspace 3' # work - microsoft word, vm
+cmd-4 = 'workspace 4' # browser - fun
+cmd-5 = 'workspace 5' # vpn, docker
+cmd-6 = 'workspace 6'
+cmd-7 = 'workspace 7'
+cmd-8 = 'workspace 8'
+cmd-9 = 'workspace 9'
+cmd-0 = 'workspace 10' # spotify
+
+# move app to workspace and switch
+cmd-ctrl-1 = ['move-node-to-workspace 1', 'workspace 1']
+cmd-ctrl-2 = ['move-node-to-workspace 2', 'workspace 2']
+cmd-ctrl-3 = ['move-node-to-workspace 3', 'workspace 3']
+cmd-ctrl-4 = ['move-node-to-workspace 4', 'workspace 4']
+cmd-ctrl-5 = ['move-node-to-workspace 5', 'workspace 5']
+cmd-ctrl-6 = ['move-node-to-workspace 6', 'workspace 6']
+cmd-ctrl-7 = ['move-node-to-workspace 7', 'workspace 7']
+cmd-ctrl-8 = ['move-node-to-workspace 8', 'workspace 8']
+cmd-ctrl-9 = ['move-node-to-workspace 9', 'workspace 9']
+cmd-ctrl-0 = ['move-node-to-workspace 10', 'workspace 10']
+
+# workspace quick switching
+alt-tab = 'workspace-back-and-forth'
+alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
+
+alt-shift-semicolon = 'mode service'
+
+# ⎧                                        ⎫
+# ⎨  App Specific Workspaces               ⎬
+# ⎩                                        ⎭
+# Workaround for now to open firefox if its not already open in 1 or 4
+ctrl-b = '''exec-and-forget open -na Firefox'''
+ctrl-t = '''exec-and-forget open -na Kitty'''
+
+[[on-window-detected]]
+  if.app-id = 'net.kovidgoyal.kitty'
+  run = 'move-node-to-workspace 2'
+
+[[on-window-detected]]
+  if.app-id = 'org.mozilla.firefox'
+  run = 'move-node-to-workspace 1'
+
+[[on-window-detected]]
+  if.app-id = 'com.docker.docker'
+  run = 'move-node-to-workspace 5'
+
+[[on-window-detected]]
+  if.app-id = 'com.nordvpn.macos'
+  run = 'move-node-to-workspace 5'
+
+[[on-window-detected]]
+  if.app-id = 'com.spotify.client'
+  run = 'move-node-to-workspace 10'
+
+# ⎧                                        ⎫
+# ⎨  Service Mode Keymaps                  ⎬
+# ⎩                                        ⎭
+[mode.service.binding]
+esc = ['reload-config', 'mode main']
+r = ['flatten-workspace-tree', 'mode main'] # reset layout
+f = ['layout floating tiling', 'mode main'] # Toggle between floating and tiling layout
+backspace = ['close-all-windows-but-current', 'mode main']
+
+# Join windows into a parent container
+alt-shift-h = ['join-with left', 'mode main']
+alt-shift-j = ['join-with down', 'mode main']
+alt-shift-k = ['join-with up', 'mode main']
+alt-shift-l = ['join-with right', 'mode main']
