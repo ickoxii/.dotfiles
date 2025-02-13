@@ -2,7 +2,7 @@
 # Install dotfiles for macos
 
 if [[ -z $STOW_FOLDERS ]]; then
-  STOW_FOLDERS="bin,kitty,mac-terminal,nvim,tmux,vim,zsh,yabai"
+  STOW_FOLDERS="bin,kitty,mac-terminal,nvim,tmux,vim,zsh,yabai,skhd"
 fi
 
 if [[ -z $DOTFILES ]]; then

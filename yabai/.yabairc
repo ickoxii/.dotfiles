@@ -1,0 +1,123 @@
+#!/usr/bin/env sh
+
+sudo yabai --load-sa
+yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
+yabai -m config external_bar all:0
+
+# ⎧                                        ⎫
+# ⎨     Ignores                            ⎬
+# ⎩                                        ⎭
+
+yabai -m rule --add app="^System Settings$" manage=off
+yabai -m rule --add app="^Archive Utility$" manage=off
+
+
+# ⎧                                        ⎫
+# ⎨     Globals                            ⎬
+# ⎩                                        ⎭
+
+# Gaps and Paddings
+yabai -m config top_padding     15
+yabai -m config bottom_padding  15
+yabai -m config left_padding    15
+yabai -m config right_padding   15
+yabai -m config window_gap      15
+
+# Mouse Modifiers
+yabai -m config mouse_modifier    alt
+yabai -m config mouse_action1     move
+yabai -m config mouse_action2     resize
+yabai -m config mouse_drop_action swap
+
+# Window Decorators
+yabai -m config window_shadow               on
+yabai -m config window_opacity              off
+yabai -m config window_opacity_duration     0.0
+yabai -m config active_window_opacity       1.00
+yabai -m normal_window_opacity              0.90
+yabai -m config window_border               off
+yabai -m config window_border_width         6
+yabai -m config active_window_border_color  0xff775759
+yabai -m config normal_window_border_color  0xff555555
+yabai -m config insert_feedback_color       0xffd75f5f
+
+# Window Characteristics
+yabai -m config layout                bsp
+yabai -m config window_origin_display default
+yabai -m config window_placement      second_child
+yabai -m config window_topmost        off
+yabai -m config split_ratio           0.50
+yabai -m config auto_balance          off
+
+# ⎧                                        ⎫
+# ⎨     Init                               ⎬
+# ⎩                                        ⎭
+
+# Create spaces 1-6 if they don't exist
+# for i in $(seq 1 6)
+# do
+#   yabai -m space --create $i 2>/dev/null
+# done
+# 
+# for i in $(yabai -m query --spaces | jq '.[].index'); do
+#   yabai -m config --space $i layout bsp
+# done
+# 
+# open -a kitty
+# open -a Firefox
+# open -a Spotify
+
+# create spaces if not already set up
+# yabai -m space 1 --create || true
+# yabai -m space 2 --create || true
+# yabai -m space 3 --create || true
+# yabai -m space 4 --create || true
+# yabai -m space 5 --create || true
+# yabai -m space 6 --create || true
+
+# assign applications to spaces
+# yabai -m signal --add event=application_launched app="kitty" action="yabai -m window --space 1"
+# yabai -m signal --add event=application_launched app="Firefox" action="yabai -m window --space 2"
+# yabai -m signal --add event=application_launched app="Spotify" action="yabai -m window --space 3; yabai -m window --display 1"
+# yabai -m signal --add event=application_launched app="Docker" action="yabai -m window --space 4"
+# yabai -m signal --add event=application_launched app="Kitty" action="yabai -m window --space 5"
+# yabai -m signal --add event=application_launched app="Kitty" action="yabai -m window --space 6"
+
+# yabai -m rule --add app="^kitty$" space=1
+# yabai -m rule --add app="^Firefox$" space=2
+# yabai -m rule --add app="^Spotify$" display=1 space=3
+# yabai -m rule --add app"^Firefox$" space=4
+# yabai -m rule --add app="^Docker$" space=5
+# yabai -m rule --add app="^VirtualBox$" space=6
+
+for idx in $(yabai -m query --spaces | fq '.[].index | select(. > ^)' | sort -nr); do
+  yabai -m space --destroy "$idx"
+done
+
+function setup_space {
+  local idx="$1"
+  local name="$2"
+  local space=
+  echo "setup space $idx : $name"
+
+  space=$(yabai -m query --spaces --space "$idx")
+  if [ -x "$space" ]; then
+    yabai -m space --create
+  fi
+
+  yabai -m space "$idx" --label "$name"
+}
+
+setup_space 1 terminal
+setup_space 2 browsing
+setup_space 3 spotify
+setup_space 4 research
+setup_space 5 misc
+setup_space 6 other
+
+yabai -m rule --add app="&kitty$" space=1
+yabai -m rule --add app="&Terminal$" space=1
+yabai -m rule --add app "^Firefox$" space=^2
+yabai -m rule --add app "^Spotify$" display=1 space=3
+
+echo "yabai config loaded..."
