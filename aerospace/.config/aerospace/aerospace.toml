@@ -75,10 +75,10 @@ cmd-shift-equal = 'resize smart +50'
 # switch to workspaces
 cmd-1 = 'workspace 1' # browser - work
 cmd-2 = 'workspace 2' # terminal
-cmd-3 = 'workspace 3' # work - microsoft word, vm
+cmd-3 = 'workspace 3' # OPEN
 cmd-4 = 'workspace 4' # browser - fun
-cmd-5 = 'workspace 5' # vpn, docker
-cmd-6 = 'workspace 6'
+cmd-5 = 'workspace 5' # workstations - vms, word
+cmd-6 = 'workspace 6' # util - vpn, docker
 cmd-7 = 'workspace 7'
 cmd-8 = 'workspace 8'
 cmd-9 = 'workspace 9'
@@ -102,29 +102,51 @@ alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
 
 alt-shift-semicolon = 'mode service'
 
-# ⎧                                        ⎫
-# ⎨  App Specific Workspaces               ⎬
-# ⎩                                        ⎭
 # Workaround for now to open firefox if its not already open in 1 or 4
 ctrl-b = '''exec-and-forget open -na Firefox'''
 ctrl-t = '''exec-and-forget open -na Kitty'''
 
-[[on-window-detected]]
-  if.app-id = 'net.kovidgoyal.kitty'
-  run = 'move-node-to-workspace 2'
+# ⎧                                        ⎫
+# ⎨  App Specific Workspaces               ⎬
+# ⎩  osascript -e 'id of app "AppName"'    ⎭
 
+# 1. Browsers - Work
 [[on-window-detected]]
   if.app-id = 'org.mozilla.firefox'
   run = 'move-node-to-workspace 1'
 
+# 2. Terminals
 [[on-window-detected]]
-  if.app-id = 'com.docker.docker'
+  if.app-id = 'net.kovidgoyal.kitty'
+  run = 'move-node-to-workspace 2'
+[[on-window-detected]]
+  if.app-id = 'com.apple.Terminal'
+  run = 'move-node-to-workspace 2'
+
+# 3 is open if i need to full screen smth rq
+
+# 4. Browsers - Personal
+[[on-window-detected]]
+  if.app-id = 'com.google.Chrome'
+  run = 'move-node-to-workspace 4'
+
+# 5. Workstations
+[[on-window-detected]]
+  if.app-id = 'org.virtualbox.app.VirtualBox'
+  run = 'move-node-to-workspace 5'
+[[on-window-detected]]
+  if.app-id = 'com.microsoft.Word'
   run = 'move-node-to-workspace 5'
 
+# 6. Util
 [[on-window-detected]]
   if.app-id = 'com.nordvpn.macos'
-  run = 'move-node-to-workspace 5'
+  run = 'move-node-to-workspace 6'
+[[on-window-detected]]
+  if.app-id = 'com.docker.docker'
+  run = 'move-node-to-workspace 6'
 
+# 10. Music
 [[on-window-detected]]
   if.app-id = 'com.spotify.client'
   run = 'move-node-to-workspace 10'
