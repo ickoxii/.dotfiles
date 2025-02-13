@@ -150,12 +150,26 @@ alt-shift-f = 'fullscreen'
   if.app-id = 'com.microsoft.Word'
   run = 'move-node-to-workspace 5'
 
-# 6. Util
+# 8. Messaging
+[[on-window-detected]]
+  if.app-id = 'com.apple.MobileSMS'
+  run = 'move-node-to-workspace 8'
+[[on-window-detected]]
+  if.app-id = 'com.hnc.Discord'
+  run = 'move-node-to-workspace 8'
+[[on-window-detected]]
+  if.app-id = 'com.microsoft.teams2'
+  run = 'move-node-to-workspace 8'
+[[on-window-detected]]
+  if.app-id = 'com.tinyspec.slackmacgap'
+  run = 'move-node-to-workspace 8'
+
+# 9. Util
 [[on-window-detected]]
   if.app-id = 'com.nordvpn.macos'
   run = 'move-node-to-workspace 9'
 [[on-window-detected]]
-  if.app-id = 'com.docker.docker'
+  if.app-id = 'com.electron.dockerdesktop'
   run = 'move-node-to-workspace 9'
 
 # 10. Music
