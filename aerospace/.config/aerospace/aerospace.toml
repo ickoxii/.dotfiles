@@ -98,7 +98,16 @@ ctrl-t = '''exec-and-forget open -na Kitty'''
 alt-shift-f = 'fullscreen'
 
 [workspace-to-monitor-force-assignment]
-10 = '^built-in retina display$'
+1 = 'dell'
+2 = 'dell'
+3 = 'dell'
+4 = 'dell'
+5 = 'dell'
+6 = 'dell'
+7 = 'dell'
+8 = 'dell'
+9 = 'dell'
+10 = '^Built-in Retina Display$'
 
 # ⎧                                        ⎫
 # ⎨  App Specific Workspaces               ⎬
@@ -118,6 +127,15 @@ alt-shift-f = 'fullscreen'
   run = 'move-node-to-workspace 2'
 
 # 3 is open if i need to full screen smth rq
+[[on-window-detected]]
+  if.app-id = 'com.jetbrains.rustrover'
+  run = 'move-node-to-workspace 3'
+[[on-window-detected]]
+  if.app-id = 'com.jetbrains.intellij'
+  run = 'move-node-to-workspace 3'
+[[on-window-detected]]
+  if.app-id = 'com.microsoft.VSCode'
+  run = 'move-node-to-workspace 3'
 
 # 4. Browsers - Personal
 [[on-window-detected]]
