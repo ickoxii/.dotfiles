@@ -62,10 +62,10 @@ cmd-2 = 'workspace 2' # terminal
 cmd-3 = 'workspace 3' # OPEN
 cmd-4 = 'workspace 4' # browser - fun
 cmd-5 = 'workspace 5' # workstations - vms, word
-cmd-6 = 'workspace 6' # util - vpn, docker
+cmd-6 = 'workspace 6'
 cmd-7 = 'workspace 7'
 cmd-8 = 'workspace 8'
-cmd-9 = 'workspace 9'
+cmd-9 = 'workspace 9' # util - vpn, docker
 cmd-0 = 'workspace 10' # spotify
 
 # move app to workspace and switch
@@ -106,7 +106,7 @@ alt-shift-f = 'fullscreen'
 6 = 'dell'
 7 = 'dell'
 8 = 'dell'
-9 = 'dell'
+9 = '^Built-in Retina Display$'
 10 = '^Built-in Retina Display$'
 
 # ⎧                                        ⎫
@@ -153,10 +153,10 @@ alt-shift-f = 'fullscreen'
 # 6. Util
 [[on-window-detected]]
   if.app-id = 'com.nordvpn.macos'
-  run = 'move-node-to-workspace 6'
+  run = 'move-node-to-workspace 9'
 [[on-window-detected]]
   if.app-id = 'com.docker.docker'
-  run = 'move-node-to-workspace 6'
+  run = 'move-node-to-workspace 9'
 
 # 10. Music
 [[on-window-detected]]
