@@ -10,11 +10,10 @@ alias kp='killall -9 wine64-preloader'
 # history
 alias h='history'
 
-# ssh
-[ "$TERM" = "xterm-kitty" ] && alias ssh="kitty +kitten ssh"
-
 # kitty
 alias whiskers='rm /var/folders/*/*/*/com.apple.dock.iconcache; killall Dock'
+alias kitty-themes='kitty +kitten themes'
+[ "$TERM" = "xterm-kitty" ] && alias ssh="kitty +kitten ssh"
 
 # util
 alias vim='nvim'
@@ -25,7 +24,8 @@ alias l='ls -lA'
 alias grep='grep --color=auto'
 alias ffs='sudo $(fc -ln -1)'
 # if you accidentally cd into a file
-alias cdir='cd "${_$/*}"'
+alias cdir='cd "$(fc -ln -1 | awk "{print \$2}" | sed -E "s|/[^/]+$||" | sed "s|^~|$HOME|")"'
+alias reman='man $(fc -ln -1 | awk "{print $1}"'
 
 # docker
 
