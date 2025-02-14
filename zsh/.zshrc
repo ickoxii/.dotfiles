@@ -1,4 +1,4 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.config/zsh/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
@@ -77,7 +77,6 @@ zinit light Aloxaf/fzf-tab
 # Get snippets
 zinit snippet OMZP::command-not-found
 zinit snippet OMZP::safe-paste
-zinit snippet OMZP::rust
 
 # Snippets to check out
 # zinit snippet OMZP::colored-man-pages
@@ -90,8 +89,8 @@ autoload -U compinit && compinit
 # Reloads all cached completions? idk man recommended by the friendly manual
 zinit cdreplay -q
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
+[[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
 
 # ⎧                                        ⎫
 # ⎨  Shell integrations                    ⎬
