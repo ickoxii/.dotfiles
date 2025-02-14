@@ -1,0 +1,60 @@
+# general purpose
+alias rover='open -a RustRover'
+alias idea='open -a Intellij\ IDEA'
+alias ij='~/packages/derby10/bin/ij'
+alias quickubuntu='docker run -it -e DISPLAY=$(ipconfig getifaddr en0):0 --name ubuntu ubuntu'
+alias getlocalip='ipconfig getifaddr en0'
+alias daily='touch $(date +%Y%m%d).md'
+alias kp='killall -9 wine64-preloader'
+
+# history
+alias h='history'
+
+# ssh
+[ "$TERM" = "xterm-kitty" ] && alias ssh="kitty +kitten ssh"
+
+# kitty
+alias whiskers='rm /var/folders/*/*/*/com.apple.dock.iconcache; killall Dock'
+
+# util
+alias vim='nvim'
+alias ls='ls --color=auto'
+alias la='ls -lA'
+alias ll='ls -l'
+alias l='ls -lA'
+alias grep='grep --color=auto'
+alias ffs='sudo $(fc -ln -1)'
+# if you accidentally cd into a file
+alias cdir='cd "${_$/*}"'
+
+# docker
+
+# pass
+alias bp='pass show -c email/microsoft/baylor'
+
+# tmux
+alias t='tmux'
+alias tls='tmux ls'
+alias tl='tmux ls'
+alias td='tmux attach -d'
+alias tks='tmux kill-server'
+# kill all sessions except for this one
+alias tksa='tmux kill-session -a'
+# kill this session
+alias texit="tmux kill-session -t $(tmux display-message -p '#S')"
+alias trs='tmux rename-ssion -t'
+alias ta='tmux attach -t $(tmux ls | tr ":" " " | awk "{print \$1}" | fzf)'
+# attach to session for current directory
+alias tds='_tmux_directory_session'
+
+# git
+alias gb='git branch'
+alias gst='git status'
+alias gl='git log --graph --oneline'
+# Git Log All
+alias gla='git log --graph --decorate --all'
+alias gpom='git pull -u origin main'
+alias gf='git fetch --all'
+alias gcp='git cherry-pick'
+# Git List Files
+alias glf='git ls-files'
