@@ -1,57 +1,5 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.config/zsh/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
-# ⎧                                        ⎫
-# ⎨  Dev setup                             ⎬
-# ⎩                                        ⎭
-export EDITOR=nvim
-export ZDOTDIR=${HOME}/.config/zsh
-
-# homebrew
-eval "$(/opt/homebrew/bin/brew shellenv)"
-
-# Rust
-. "$HOME/.cargo/env"
-
-# My scripts
-export PATH="${HOME}/.local/bin:${PATH}"
-
-# Go
-export GOPATH=/usr/local/go/bin
-export PATH=$GOPATH/bin:$PATH
-
-# pyenv -- higher precedence than brew install versions
-export PYENV_ROOT="${HOME}/.pyenv"
-[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
-
-# Python
-export PYTHON_HOME="/opt/homebrew/opt/python"
-export PATH="${PYTHON_HOME}/libexec/bin:${PATH}"
-
-# Maven
-export M2_HOME="${HOME}/packages/apache-magen-3.9.6"
-export PATH="${M2_HOME}/bin:${PATH}"
-
-# JDK
-# export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk-21.jdk/Contents/Home"
-# export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk-22.jdk/Contents/Home"
-# export JAVA_HOME="/Library/Java/JavaVirtualMachines/openjdk.jdk/Contents/Home"
-export JAVA_HOME="/Library/Java/JavaVirtualMachines/openjdk-17.jdk/Contents/Home"
-export PATH="${JAVA_HOME}/bin:${PATH}"
-
-# Apache Derby
-export DERBY_HOME="${HOME}/packages/derby10"
-export PATH="${DERBY_HOME}/bin:${PATH}"
-
-# Google Cloud CLI
-export GCLOUD_HOME="${HOME}/packages/google-cloud-sdk"
-export PATH="${GCLOUD_HOME}/bin:${PATH}"
+# Anything for interactive shells.
+# Plugins, keybinds, prompts, etc.
 
 # ⎧                                        ⎫
 # ⎨  Init stuff                            ⎬
@@ -62,7 +10,8 @@ ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 # Download Zinit, if it's not there yet
 if [ ! -d "$ZINIT_HOME" ]; then
   mkdir -p "$(dirname $ZINIT_HOME)"
-  git clone https://github.com/zsharma-continuum/zinit.git "$ZINIT_HOME"
+  # git clone https://github.com/zsharma-continuum/zinit.git "$ZINIT_HOME"
+  git clone git@github.com:zdharma-continuum/zinit.git "$ZINIT_HOME"
 fi
 
 # Source/Load zinit
@@ -72,7 +21,7 @@ source "${ZINIT_HOME}/zinit.zsh"
 zinit ice depth=1; zinit light romkatv/powerlevel10k
 zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-completions
-zinit light Aloxaf/fzf-tab
+# zinit light Aloxaf/fzf-tab
 
 # Get snippets
 zinit snippet OMZP::command-not-found
@@ -124,8 +73,7 @@ setopt hist_find_no_dups
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}' # ignore case on completions
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 zstyle ':completion:*' menu no
-zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
+# zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
 
 # Source aliases
 [[ -f ~/.config/zsh/.zaliases ]] && source ~/.config/zsh/.zaliases
-
