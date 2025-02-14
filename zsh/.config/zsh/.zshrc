@@ -77,3 +77,8 @@ zstyle ':completion:*' menu no
 
 # Source aliases
 [[ -f ~/.config/zsh/.zaliases ]] && source ~/.config/zsh/.zaliases
+
+# Launch tmux session if not already in one
+if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
+  tmux attach-session -t default || tmux new-session -s default
+fi
