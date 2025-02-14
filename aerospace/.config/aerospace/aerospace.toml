@@ -116,18 +116,18 @@ alt-shift-f = 'fullscreen'
 # ⎨  App Specific Workspaces               ⎬
 # ⎩  aerospace list-apps                   ⎭
 
-# 1. Terminals
-[[on-window-detected]]
-  if.app-id = 'net.kovidgoyal.kitty'
-  run = 'move-node-to-workspace 1'
-[[on-window-detected]]
-  if.app-id = 'com.apple.Terminal'
-  run = 'move-node-to-workspace 1'
-
-# 2. Browsers - Work
+# 1. Browsers - Work
 # [[on-window-detected]]
 #   if.app-id = 'org.mozilla.firefox'
-#   run = 'move-node-to-workspace 2'
+#   run = 'move-node-to-workspace 1'
+
+# 2. Terminals
+[[on-window-detected]]
+  if.app-id = 'net.kovidgoyal.kitty'
+  run = 'move-node-to-workspace 2'
+[[on-window-detected]]
+  if.app-id = 'com.apple.Terminal'
+  run = 'move-node-to-workspace 2'
 
 # 3 is open if i need to full screen smth rq
 [[on-window-detected]]
