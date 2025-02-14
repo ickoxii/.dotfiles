@@ -37,6 +37,9 @@ outer.right =      8
 # mode binding
 alt-shift-semicolon = 'mode service'
 
+# hotload config
+cmd-shift-r = 'reload-config'
+
 # toggle between splits
 cmd-slash = 'layout tiles horizontal vertical'
 
@@ -81,10 +84,10 @@ cmd-ctrl-9 = ['move-node-to-workspace 9', 'workspace 9']
 cmd-ctrl-0 = ['move-node-to-workspace 10', 'workspace 10']
 
 # Join windows into a parent container (because aerospace doesn't do bsp natively)
-alt-shift-h = ['join-with left', 'mode main']
-alt-shift-j = ['join-with down', 'mode main']
-alt-shift-k = ['join-with up', 'mode main']
-alt-shift-l = ['join-with right', 'mode main']
+cmd-shift-h = ['join-with left', 'mode main']
+cmd-shift-j = ['join-with down', 'mode main']
+cmd-shift-k = ['join-with up', 'mode main']
+cmd-shift-l = ['join-with right', 'mode main']
 
 # workspace quick switching
 alt-tab = 'workspace-back-and-forth'
@@ -113,18 +116,18 @@ alt-shift-f = 'fullscreen'
 # ⎨  App Specific Workspaces               ⎬
 # ⎩  aerospace list-apps                   ⎭
 
-# 1. Browsers - Work
-# [[on-window-detected]]
-#   if.app-id = 'org.mozilla.firefox'
-#   run = 'move-node-to-workspace 1'
-
-# 2. Terminals
+# 1. Terminals
 [[on-window-detected]]
   if.app-id = 'net.kovidgoyal.kitty'
-  run = 'move-node-to-workspace 2'
+  run = 'move-node-to-workspace 1'
 [[on-window-detected]]
   if.app-id = 'com.apple.Terminal'
-  run = 'move-node-to-workspace 2'
+  run = 'move-node-to-workspace 1'
+
+# 2. Browsers - Work
+# [[on-window-detected]]
+#   if.app-id = 'org.mozilla.firefox'
+#   run = 'move-node-to-workspace 2'
 
 # 3 is open if i need to full screen smth rq
 [[on-window-detected]]
