@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+BASE_NAME="$(pwd | grep -oE '[^/]+$')"
+
+# Stop the container
+docker stop ${BASE_NAME}
+
+# Remove the container
+docker rm ${BASE_NAME}
+
+# Remove the image
+docker rmi acfreeman/rustnetworking
+
+# Prune dangling images
+docker image prune -af
+
+# Prune unused resources
+docker system prune -f

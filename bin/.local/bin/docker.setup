@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+# TODO maybe it container is running then just exec into it?
+
+BASE_NAME="$(pwd | grep -oE '[^/]+$')"
+
+# Pull the image from Docker Hub
+docker pull acfreeman/rustnetworking
+
+# Mount the current directory and run in detached mode so the container
+# does not stop on exit
+docker run -dit \
+  --cap-add=NET_ADMIN \
+  --privileged \
+  --name ${BASE_NAME} \
+  -v "$(pwd):/${BASE_NAME}" \
+  -w /${BASE_NAME} \
+  acfreeman/rustnetworking
+
+# Enter the container (if the container is already running or was started detached)
+docker exec -it ${BASE_NAME} -ickoxii /bin/bash
+
