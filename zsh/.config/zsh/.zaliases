@@ -1,31 +1,32 @@
 # general purpose
-alias rover='open -a RustRover'
+alias daily='touch $(date +%Y%m%d).md'
+alias getlocalip='ipconfig getifaddr en0'
 alias idea='open -a Intellij\ IDEA'
 alias ij='~/packages/derby10/bin/ij'
-alias quickubuntu='docker run -it -e DISPLAY=$(ipconfig getifaddr en0):0 --name ubuntu ubuntu'
-alias getlocalip='ipconfig getifaddr en0'
-alias daily='touch $(date +%Y%m%d).md'
 alias kp='killall -9 wine64-preloader'
-
-# history
-alias h='history'
+alias quickubuntu='docker run -it -e DISPLAY=$(ipconfig getifaddr en0):0 --name ubuntu ubuntu'
+alias rover='open -a RustRover'
 
 # kitty
-alias whiskers='rm /var/folders/*/*/*/com.apple.dock.iconcache; killall Dock'
 alias kitty-themes='kitty +kitten themes'
+alias whiskers='rm /var/folders/*/*/*/com.apple.dock.iconcache; killall Dock'
 [ "$TERM" = "xterm-kitty" ] && alias ssh="kitty +kitten ssh"
 
 # util
-alias vim='nvim'
-alias ls='ls --color=auto'
-alias la='ls -lA'
-alias ll='ls -l'
-alias l='ls -lA'
-alias grep='grep --color=auto'
-alias ffs='sudo $(fc -ln -1)'
+alias c='clear'
 # if you accidentally cd into a file
 alias cdir='cd "$(fc -ln -1 | awk "{print \$2}" | sed -E "s|/[^/]+$||" | sed "s|^~|$HOME|")"'
-alias reman='man $(fc -ln -1 | awk "{print $1}"'
+alias e='exit'
+alias ffs='sudo $(fc -ln -1)'
+alias grep='grep --color=auto'
+alias h='history'
+alias l='ls -lA'
+alias la='ls -lA'
+alias ll='ls -l'
+alias ls='ls --color=auto'
+alias path='echo $PATH | tr ":" "\n"'
+alias reman='man $(fc -ln -1 | awk "{print $1}")'
+alias vim='nvim'
 
 # docker
 
@@ -33,26 +34,27 @@ alias reman='man $(fc -ln -1 | awk "{print $1}"'
 alias bp='pass show -c email/microsoft/baylor'
 
 # tmux
-alias tls='tmux ls'
-alias tl='tmux ls'
-alias tks='tmux kill-server'
-# kill all sessions except for this one
-alias tksa='tmux kill-session -a'
+alias t='tmux'
+alias ta='tmux attach -t $(tmux ls | tr ":" " " | awk "{print \$1}" | fzf)'
 # kill this session
 alias texit="tmux kill-session -t $(tmux display-message -p '#S')"
-alias trs='tmux rename-ssion -t'
-alias ta='tmux attach -t $(tmux ls | tr ":" " " | awk "{print \$1}" | fzf)'
-# attach to session for current directory
-alias tds='_tmux_directory_session'
+# kill all sessions except for this one
+alias tksa='tmux kill-session -a'
+# kill target session
+alias tkst='tmux kill-session -t'
+# kill everything
+alias tksv='tmux kill-server'
+alias tl='tmux ls'
+alias tls='tmux ls'
+alias trs='tmux rename-session -t'
 
 # git
 alias gb='git branch'
-alias gst='git status'
-alias gl='git log --graph --oneline'
-# Git Log All
-alias gla='git log --graph --decorate --all'
-alias gpom='git pull -u origin main'
-alias gf='git fetch --all'
 alias gcp='git cherry-pick'
-# Git List Files
-alias glf='git ls-files'
+alias gf='git fetch --all'
+alias gl='git log --graph --oneline'
+alias gla='git log --graph --decorate --all'
+alias gls='git ls-files'
+alias gp='git pull'
+alias gr='git remote -v'
+alias gs='git status'

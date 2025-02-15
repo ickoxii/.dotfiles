@@ -42,25 +42,28 @@ zinit cdreplay -q
 [[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
 
 # ⎧                                        ⎫
-# ⎨  Shell integrations                    ⎬
-# ⎩                                        ⎭
-eval "$(fzf --zsh)"
-
-# ⎧                                        ⎫
 # ⎨  Keybindings                           ⎬
 # ⎩                                        ⎭
-bindkey '^f' autosuggest-accept # TODO switch to emacs mode?
-bindkey '^n' history-search-forward
-bindkey '^p' history-search-backward
+# For use with fzf-tab
+# bindkey '^f' autosuggest-accept # TODO switch to emacs mode?
+# bindkey '^n' history-search-forward
+# bindkey '^p' history-search-backward
 
 # ⎧                                        ⎫
 # ⎨  Globals                               ⎬
 # ⎩                                        ⎭
+# Completions
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}' # ignore case on completions
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+zstyle ':completion:*' menu no
+# zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
+
 # History
 HISTSIZE=5000
 HISTFILE=~/.zsh_history
 SAVEHIST=$HISTSIZE
 HISTDUP=erase
+
 setopt appendhistory
 setopt sharehistory
 setopt hist_ignore_space
