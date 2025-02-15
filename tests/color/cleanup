@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# run me second
+
+kill -9 $(ps -eo pid,command | grep -E '^.*nc -lU 03_test_socket$' | awk '{print $1}')
+rm -rf test

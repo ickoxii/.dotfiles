@@ -1,0 +1,29 @@
+#!/bin/bash
+
+echo ">>> cinit"
+mkdir c && cd c && cinit -l c -d n -b n -s base -std gnu89
+printf "#include <stdio.h>\n" >> src/main.c
+echo 'int main(void) { printf("hello from c\n"); return 0; }' >> src/main.c
+cd ..
+
+echo ">>> cppinit"
+mkdir cpp && cd cpp && cinit -l cpp -d n -b n -s base -std c++11
+printf "#include <iostream>\n" >> src/main.cpp
+printf "int main(void) { std::cout << \"hello from cpp\" << std::endl; return 0; }" >> src/main.cpp
+cd ..
+
+echo ">>> rsinit"
+cargo new "rust"
+
+echo ">>> luainit"
+mkdir lua
+touch lua/main.lua
+echo "print('whats good g')" >> lua/main.lua
+
+echo ">>> texinit"
+mkdir tex
+cp ~/baylor/classes/csi4337-os/hw/hw4/hw4.tex tex/test.tex
+
+echo ">>> mdinit"
+mkdir md
+cp ~/.dotfiles/README.md md

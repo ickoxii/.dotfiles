@@ -1,25 +1,128 @@
 #!/usr/bin/env bash
+# code stolen from the PrimeAgen.
+# modified to handle different terminal instances and calling this function
+# outside of tmux.
+# works outside of tmux but not when called from keybind :(
 
+#
+# gets a basename and normalizes it
+# takes in a directory path as an argument
+#
+function get_base_name() {
+  if [[ $1 = ${HOME} ]]; then
+    echo ${USER}
+    return
+  fi
+  echo $(basename $1 | tr . _)
+}
+
+#
+# print important directories
+#
 if [[ $# -eq 1 ]]; then
-    selected=$1
+  selected=$1
 else
-    selected=$(find ~/projects ~/baylor/projects ~/baylor/classes ~ -mindepth 1 -maxdepth 1 -type d | fzf)
+  selected=$(find ~/projects ~/baylor/projects ~/baylor/classes ~ -mindepth 1 -maxdepth 1 -type d | fzf)
 fi
+
+# DBG
+echo "selected: ${selected}"
 
 if [[ -z $selected ]]; then
-    exit 0
+  exit 0
 fi
 
-selected_name=$(basename "$selected" | tr . _)
+selected_name=$(get_base_name "$selected")
 tmux_running=$(pgrep tmux)
 
+# DBG
+echo "selected_name: $selected_name"
+
+#
+# create session if not in tmux session and there is no tmux server
+#
 if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
-    tmux new-session -s $selected_name -c $selected
+  # DBG
+  echo "not in tmux, no server: creating ${selected_name}-0 at $selected"
+  tmux new-session -ds "${selected_name}-0" -c "$selected"
+  tmux attach -t "${selected_name}-0"
+  exit 0
+fi
+
+#
+# create new session if it does not exist
+#
+all_dir_sessions=$(tmux ls -F '#{session_name} #{session_path} #{session_attached}' | grep -E "^.*\s${selected}\s[01]$")
+if [[ -z "$all_dir_sessions" ]]; then
+  # in tmux: create detached session and switch client
+  if [[ -n $TMUX ]]; then
+    # DBG
+    echo "in tmux, creating new session: ${selected_name}-0 at ${selected}"
+    tmux new-session -ds "${selected_name}-0" -c "${selected}"
+
+    # verify if the session exists
+    if tmux has-session -t "${selected_name}-0" 2>/dev/null; then
+      tmux switch-client -t "${selected_name}-0"
+    else
+      echo "Failed to create tmux session: ${selected_name}-0"
+      exit 1
+    fi
     exit 0
+    #tmux switch-client -t "${selected_name}-0"
+    #exit 0
+  fi
+
+  # DBG
+  echo "not in tmux, creating new session: ${selected_name}-0 at ${selected}"
+  # not in tmux: create the session
+  tmux new-session -s "${selected_name}-0" -c "${selected}"
+  exit 0
 fi
 
-if ! tmux has-session -t=$selected_name 2> /dev/null; then
-    tmux new-session -ds $selected_name -c $selected
+#
+# attach to existing detached session
+#
+latest_detached_id=$(echo "${all_dir_sessions}" | \
+  sort -nr | \
+  sed -En "s/^${selected_name}-([0-9]+).*0$/\1/p" | \
+  head -n 1
+)
+if [[ -n $latest_detached_id ]]; then
+  # in tmux: switch client to detached session
+  if [[ -n $TMUX ]]; then
+    # DBG
+    echo "in tmux, switch to detached session: ${selected_name}-${latest_detached_id}"
+    tmux switch-client -t "${selected_name}-${latest_detached_id}"
+    exit 0
+  fi
+
+  # DBG
+  echo "not in tmux: attach to detached session: ${selected_name}-${latest_detached_id}"
+  # not in tmux: attach to detached session
+  tmux attach -t "${selected_name}-${latest_detached_id}"
+  exit 0
 fi
 
-tmux switch-client -t $selected_name
+#
+# there is at least one session and no detached session, therefore an
+# attached session must exist. increment the id and attach
+#
+latest_attached_id=$(echo "${all_dir_sessions}" | \
+  sort -nr | \
+  sed -En "s/^${selected_name}-([0-9]+).*1$/\1/p" | \
+  head -n 1
+)
+incremented_id=$(expr 1 + ${latest_attached_id})
+
+# in tmux: create detached session and switch client instead
+if [[ -n $TMUX ]]; then
+  # DBG
+  echo "in tmux, create detached session and switch client: ${selected_name}-${incremented_id} at ${selected}"
+  tmux new-session -ds "${selected_name}-${incremented_id}" -c ${selected}
+  tmux switch-client -t "${selected_name}-${incremented_id}"
+  exit 0
+fi
+
+# DBG
+echo "not in tmux, all sessions already attached. creating new session: ${selected_name}-${incremented_id} at ${selected}"
+tmux new-session -t "${selected_name}-${incremented_id}" -c ${selected}

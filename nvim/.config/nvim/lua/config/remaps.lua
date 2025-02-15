@@ -3,42 +3,41 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
--- Easy netrw opening
-vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
+vim.keymap.set("n", "<leader>pv", vim.cmd.Ex, { desc = "Open [P]roject [V]iew (netrw)" })
 
--- Easy clear hls
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 
--- Easier yanking to clipboard
 vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
 vim.keymap.set("n", "<leader>Y", [["+Y]])
 
--- I mean I guess
-vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
+vim.keymap.set("n", "<leader>f", vim.lsp.buf.format, { desc = 'Run lsp [f]ormat on buffer' })
 
--- Easy chmoding
 vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 
--- Fun functions - '[m]ake [i]t [r]ain' and '[g]ame [o]f [l]ife;
-vim.keymap.set("n", "<leader>mir", "<cmd>CellularAutomaton make_it_rain<CR>")
-vim.keymap.set("n", "<leader>gol", "<cmd>CellularAutomaton game_of_life<CR>")
+vim.keymap.set("n", "<leader>mr",
+  function()
+    require('cellular-automaton').start_animation('make_it_rain')
+  end,
+  { desc = "[M]ake [I]t [R]ain" })
+vim.keymap.set("n", "<leader>gl",
+  function()
+    require('cellular-automaton').start_animation('game_of_life')
+  end,
+  { desc = "[G]ame [O]f [L]ife" })
 
--- Shoutout
 vim.keymap.set("n", "<leader><leader>", function()
   vim.cmd("so")
 end)
 
--- Better navigation for long lines
-vim.keymap.set("n", "j", "gj")
-vim.keymap.set("n", "k", "gk")
-vim.keymap.set("v", "j", "gj")
-vim.keymap.set("v", "k", "gk")
+vim.keymap.set({ "n", "v" }, "j", "gj")
+vim.keymap.set({ "n", "v" }, "k", "gk")
 
--- Copilot completions
---[[
-vim.keymap.set('i', '<C-y>', 'copilot#Accept("\\<CR>")', {
-    expr = true,
-    replace_keycodes = false
+vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
+
+vim.api.nvim_create_autocmd("TextYankPost", {
+  desc = "Highlight when yanking (copying) text",
+  group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
+  callback = function()
+    vim.highlight.on_yank()
+  end,
 })
-vim.g.copilot_no_tab_map = true
---]]

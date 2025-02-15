@@ -1,0 +1,98 @@
+#!/usr/bin/env bash
+# used when in a directory and i want a tmux session such that if a session
+# already exists and is detached, attached to it. otherwise create a new
+# session at that directory
+
+#
+# gets a basename and normalizes it
+# takes in a directory path as an argument
+#
+function get_base_name() {
+  if [[ $1 = ${HOME} ]]; then
+    echo ${USER}
+    return
+  fi
+  echo $(basename $1 | tr . _)
+}
+
+#
+# is `tmux` on path?
+#
+if ! command -v tmux > /dev/null 2>&1; then
+  echo "command `tmux` not found... have you checked up on your bunghole?"
+  exit 1
+fi
+
+#
+# get directory information and tmux state
+#
+dir=$(pwd)
+session_base_name=$(get_base_name ${dir})
+tmux_running=$(pgrep tmux)
+
+#
+# tmux is not running: start a tmux session with the normalized name
+#
+if [[ -z ${tmux_running} ]]; then
+  tmux new-session -s "${session_base_name}-0" -c ${dir}
+  exit 0
+fi
+
+#
+# create new session at our directory if none exist
+#
+all_dir_sessions=$(tmux ls -F '#{session_name} #{session_path} #{session_attached}' | grep -E "^.*\s${dir}\s[01]$")
+if [[ -z "$all_dir_sessions" ]]; then
+  # in tmux: create detached session and switch client
+  if [[ -n $TMUX ]]; then
+    tmux new-session -ds "${session_base_name}-0" -d ${dir}
+    tmux switch-client -t "${session_base_name}-0"
+    exit 0
+  fi
+
+  # not in tmux: create the session
+  tmux new-session -s "${session_base_name}-0" -c ${dir}
+  exit 0
+fi
+
+#
+# attach to existing detached session
+#
+latest_detached_id=$(echo "${all_dir_sessions}" | \
+  sort -nr | \
+  sed -En "s/^${session_base_name}-([0-9]+).*0$/\1/p" | \
+  head -n 1
+)
+if [[ -n $latest_detached_id ]]; then
+  # in tmux: switch client to detached session
+  if [[ -n $TMUX ]]; then
+    tmux switch-client -t "${session_base_name}-${latest_detached_id}"
+    exit 0
+  fi
+
+  # not in tmux: attach to detached session
+  tmux attach -t "${session_base_name}-${latest_detached_id}"
+  exit 0
+fi
+
+#
+# there is at least one session and no detached session, therefore an
+# attached session must exist. increment the id and attach
+#
+latest_attached_id=$(echo "${all_dir_sessions}" | \
+  sort -nr | \
+  sed -En "s/^${session_base_name}-([0-9]+).*1$/\1/p" | \
+  head -n 1
+)
+incremented_id=$(expr 1 + ${latest_attached_id})
+
+# in tmux: create detached session and switch client instead
+if [[ -n $TMUX ]]; then
+  tmux new-session -ds "${session_base_name}-${incremented_id}" -c ${dir}
+  tmux switch-client -t "${session_base_name}-${incremented_id}"
+  exit 0
+fi
+
+# not in tmux: create new incremented session and attach
+tmux new-session -s "${session_base_name}-${incremented_id}" -c ${dir}
+exit 0

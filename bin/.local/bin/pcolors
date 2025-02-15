@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+# Print all 256 colors with their color codes and identifiers
+for code in {0..255}; do
+    # Print color in the terminal with its code
+    printf "\033[48;5;%dm%03d\033[0m  " "$code" "$code"
+    
+    # Break the line after every 8 colors
+    if [ $((($code + 1) % 8)) -eq 0 ]; then
+        echo
+    fi
+done
+

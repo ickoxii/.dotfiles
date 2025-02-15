@@ -1,0 +1,13 @@
+#!/bin/bash
+# build a containerized dev environment
+
+image_name="dev-environment"
+container_name="dev-env-$(basename $(pwd) | tr ' ' '_')"
+
+docker build -t ${image_name} .
+docker run -dit --rm \
+    --name "${container_name}" \
+    -v "$(pwd)/work/":/root/work \
+    ${image_name}
+
+printf "\nConnect to session using docker exec -it ${container_name} bash\n"

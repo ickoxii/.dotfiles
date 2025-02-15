@@ -1,2 +1,0 @@
-- Figure out java lsp (esp for springbook)
-- Fix markdown preview plugin

@@ -1,0 +1,28 @@
+
+# Editors
+.idea/
+.vscode/
+
+# Logging
+*.log
+
+# tmp/swap files
+*.bak
+*.tmp
+*.ori
+*.orig
+*.swp
+
+# secrets
+*.env
+.env
+.env*
+
+# Persistent undo
+[._]*.un~
+
+# misc
+.DS_Store
+*.zip
+*~
+*.tar.gz
