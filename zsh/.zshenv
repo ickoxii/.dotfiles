@@ -1,19 +1,24 @@
 # Anything that needs to be applied to interactive and non-interactive shells
 
 # ⎧                                        ⎫
-# ⎨  Variables, Paths, Evals               ⎬
+# ⎨  Variables, Evals, Paths               ⎬
 # ⎩                                        ⎭
+set -o vi
+
+# Variables
+export VISUAL=nvim
 export EDITOR=nvim
+export TERM="tmux-256color"
+export BROWSER="firefox"
 export ZDOTDIR=${HOME}/.config/zsh
 # export ZDOTDIR="$HOME"
 
-# homebrew
+# Evals
 eval "$(/opt/homebrew/bin/brew shellenv)"
-
-# Rust
 . "$HOME/.cargo/env"
+eval "$(fzf --zsh)"
 
-# My scripts
+# Paths
 export PATH="${HOME}/.local/bin:${PATH}"
 
 # Go
