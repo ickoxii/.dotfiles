@@ -72,16 +72,25 @@ setopt hist_save_no_dups
 setopt hist_ignore_dups
 setopt hist_find_no_dups
 
-# Completions
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}' # ignore case on completions
-zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
-zstyle ':completion:*' menu no
-# zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
-
 # Source aliases
 [[ -f ~/.config/zsh/.zaliases ]] && source ~/.config/zsh/.zaliases
 
-# Launch tmux session if not already in one
+# Launch new instance in tmux session
 if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
-  tmux attach-session -t default || tmux new-session -s default
+  # Attach to latest default session
+  DETACHED=$(tmux list-sessions | grep -E "^inst-[0-9]+:.*$" | grep -v "(attached)" | sort -nr | head -n 1 | sed -E "s/^inst-([0-9]+):.*$/\1/")
+  if [ -n "$DETACHED" ]; then
+    tmux attach-session -t "inst-$DETACHED"
+    exit
+  fi
+
+  # If there is an attached session, increment its id and create new session
+  ATTACHED=$(tmux list-sessions | grep -E "^inst-[0-9]+:.*\(attached\)$" | sort -nr | head -n 1 | sed -E "s/^inst-([0-9]+):.*$/\1/")
+  if [ -n "$ATTACHED" ]; then
+    tmux new-session -s "inst-$(expr $ATTACHED + 1)"
+    exit
+  fi
+
+  # Fine, I'll do it myself
+  tmux new-session -s "inst-0"
 fi
