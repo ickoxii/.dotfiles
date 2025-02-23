@@ -1,0 +1,3 @@
+[submodule "nvimrc"]
+	path = nvimrc
+	url = git@github.com:ickoxii/nvimrc.git
