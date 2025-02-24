@@ -1,0 +1,85 @@
+#!/bin/bash
+
+# Usage: bulint [files]
+#
+# Linter for latex files uploaded to Baylor's upload site.
+#
+# This script curls a list of packages used by the Baylor upload site.
+# Packages in local .tex files can be matched against this list to
+# verify compatibility with the upload site.
+#
+# Users can either call the script as is `bulint`, in which case
+# this script will attempt to read all files in the current directory
+# ending in '.tex'. Users can also pass in paths to files, either
+# relative or absolute, to verify.
+#
+# Examples:
+#   ./bulint
+#   ./bulint hw1.tex ~/classes/hw2.tex ../hw7.tex
+#   ./bulint /usr/home/classes/anotherclass/hw3.tex
+#
+# Note:
+#   You can save this script to a location on your path, in which
+#   case you can call it without the './' prefix.
+
+curl -o bu-latex-packages "https://raw.githubusercontent.com/ickoxii/.dotfiles/main/bin/.local/templates/latex/bu-latex-packages"
+printf "\nFor more info, visit:\n  https://classnotes.ecs.baylor.edu/wiki/List_of_Latex_packages_on_Upload_Site\n"
+
+# i hate bash arrays so much
+bu_pkgs=()
+while IFS= read -r line || [[ -n "$line" ]]; do
+  bu_pkgs+=("$line")
+done < bu-latex-packages
+
+files=$(ls *.tex)
+if [[ $# -gt 0 ]]; then
+  files=$@
+fi
+
+for file in $files; do
+  printf "\nFile: $file\n"
+
+  # depending on your sed version, you may have to use:
+  #   [:space:] -- GNU
+  #   [\s]      -- python, js, grep -P, perl
+  #   [ \t]     -- POSIX - explicitly list
+  usr_pkgs=$(sed -nE 's/^[[:space:]]*\\usepackage(\[[^]]*\])?\{([^}]*)\}/\2/p' "$file")
+
+  # check each user package...
+  for usr_pkg in $usr_pkgs; do
+    # locals store package-specific state
+    warn=""
+    found=false
+
+    # ...against each upload site package
+    for bu_pkg in "${bu_pkgs[@]}"; do
+      if [[ "$usr_pkg" == "$bu_pkg" ]]; then
+        found=true
+        break;
+      elif [[ "$bu_pkg" =~ "$usr_pkg" ]]; then
+        # Packages that are a substring of a package on the list
+        #   may be supported.
+        # See:
+        #   'xy'    => supported by 'xytree'
+        #   'array' => supported by 'subeqnarray'
+        warn="Warning: may be supported by \"$bu_pkg\""
+        # continue to see if there are better matches
+      fi
+    done
+
+    # report package status
+    if [[ "$found" == "true" ]]; then
+      printf "  %-16s - Ok\n" "$usr_pkg"
+      continue;
+    elif [[ -n "$warn" ]]; then
+      # potential dependency issue
+      printf "  %-16s - %s\n" "$usr_pkg" "$warn"
+    elif [[ "$found" == "false" ]]; then
+      # definite dependency issue
+      printf "  %-16s - %s\n" "$usr_pkg" "Error: not found"
+    fi
+  done
+done
+
+# clean
+rm bu-latex-packages
