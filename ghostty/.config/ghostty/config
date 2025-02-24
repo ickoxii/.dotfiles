@@ -11,6 +11,7 @@ macos-titlebar-style = hidden
 working-directory = home
 quit-after-last-window-closed = true
 shell-integration = detect
+mouse-hide-while-typing = true
 
 # font/keyboard
 font-size = 14
