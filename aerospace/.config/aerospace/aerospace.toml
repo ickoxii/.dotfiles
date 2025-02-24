@@ -16,105 +16,121 @@ accordion-padding = 30
 default-root-container-layout = 'tiles'
 key-mapping.preset = 'qwerty'
 default-root-container-orientation = 'auto'
+# on-focus-changed = ['move-mouse window-lazy-center']
 
 # ⎧                                        ⎫
 # ⎨  Padding                               ⎬
 # ⎩                                        ⎭
 [gaps]
-inner.horizontal = 8
-inner.vertical =   8
-outer.left =       8
-outer.bottom =     8
-outer.top =        8
-outer.right =      8
-
+inner.horizontal = 5
+inner.vertical =   5
+outer.left =       5
+outer.bottom =     5
+outer.top =        5
+outer.right =      5
 
 # ⎧                                        ⎫
 # ⎨  Main Mode Keymaps                     ⎬
 # ⎩                                        ⎭
 [mode.main.binding]
+  # util
+  alt-shift-semicolon = 'mode service'
+  cmd-ctrl-r = ['reload-config', 'mode main']
 
-# mode binding
-alt-shift-semicolon = 'mode service'
+  # toggle between splits
+  cmd-slash = 'layout tiles horizontal vertical'
 
-# hotload config
-cmd-ctrl-r = 'reload-config'
+  # focus a tile
+  cmd-h = 'focus left'
+  cmd-j = 'focus down'
+  cmd-k = 'focus up'
+  cmd-l = 'focus right'
 
-# toggle between splits
-cmd-slash = 'layout tiles horizontal vertical'
+  # move a tile
+  cmd-shift-h = 'move left'
+  cmd-shift-j = 'move down'
+  cmd-shift-k = 'move up'
+  cmd-shift-l = 'move right'
 
-# focus a tile
-cmd-h = 'focus left'
-cmd-j = 'focus down'
-cmd-k = 'focus up'
-cmd-l = 'focus right'
+  # join tiles into a parent container (because aerospace doesn't do bsp natively)
+  cmd-ctrl-h = ['join-with left', 'mode main']
+  cmd-ctrl-j = ['join-with down', 'mode main']
+  cmd-ctrl-k = ['join-with up', 'mode main']
+  cmd-ctrl-l = ['join-with right', 'mode main']
 
-# move a tile
-cmd-shift-h = 'move left'
-cmd-shift-j = 'move down'
-cmd-shift-k = 'move up'
-cmd-shift-l = 'move right'
+  # window resizing
+  alt-minus = 'resize smart -50'
+  alt-equal = 'resize smart +50'
+  alt-enter = 'balance-sizes'
+  alt-f = 'fullscreen'
 
-# tile smart resizing
-cmd-ctrl-minus = 'resize smart -50'
-cmd-ctrl-equal = 'resize smart +50'
+  # workspace quick switching
+  alt-tab = 'workspace-back-and-forth'
 
-# switch to workspaces
-cmd-1 = 'workspace 1' # browser - work
-cmd-2 = 'workspace 2' # terminal
-cmd-3 = 'workspace 3' # OPEN
-cmd-4 = 'workspace 4' # browser - fun
-cmd-5 = 'workspace 5' # workstations - vms, word
-cmd-6 = 'workspace 6'
-cmd-7 = 'workspace 7'
-cmd-8 = 'workspace 8'
-cmd-9 = 'workspace 9' # util - vpn, docker
-cmd-0 = 'workspace 10' # spotify
+  # move workspace to next/prev monitor
+  cmd-ctrl-alt-h = 'move-workspace-to-monitor --wrap-around next'
+  cmd-ctrl-alt-l = 'move-workspace-to-monitor --wrap-around prev'
 
-# move app to workspace and switch
-cmd-ctrl-1 = ['move-node-to-workspace 1', 'workspace 1']
-cmd-ctrl-2 = ['move-node-to-workspace 2', 'workspace 2']
-cmd-ctrl-3 = ['move-node-to-workspace 3', 'workspace 3']
-cmd-ctrl-4 = ['move-node-to-workspace 4', 'workspace 4']
-cmd-ctrl-5 = ['move-node-to-workspace 5', 'workspace 5']
-cmd-ctrl-6 = ['move-node-to-workspace 6', 'workspace 6']
-cmd-ctrl-7 = ['move-node-to-workspace 7', 'workspace 7']
-cmd-ctrl-8 = ['move-node-to-workspace 8', 'workspace 8']
-cmd-ctrl-9 = ['move-node-to-workspace 9', 'workspace 9']
-cmd-ctrl-0 = ['move-node-to-workspace 10', 'workspace 10']
+  # switch to workspaces
+  cmd-1 = 'workspace 1'  # main: browser - work
+  cmd-2 = 'workspace 2'  # main: terminal
+  cmd-3 = 'workspace 3'  # main: OPEN
+  cmd-4 = 'workspace 4'  # main: browser - fun
+  cmd-5 = 'workspace 5'  # main: workstations - vms, word
+  cmd-6 = 'workspace 6'  # main: OPEN
+  cmd-7 = 'workspace 7'  # main: messaging
+  cmd-8 = 'workspace 8'  # secondary: OPEN
+  cmd-9 = 'workspace 9'  # secondary: util - vpn, docker
+  cmd-0 = 'workspace 10' # secondary spotify
 
-# Join windows into a parent container (because aerospace doesn't do bsp natively)
-cmd-ctrl-h = ['join-with left', 'mode main']
-cmd-ctrl-j = ['join-with down', 'mode main']
-cmd-ctrl-k = ['join-with up', 'mode main']
-cmd-ctrl-l = ['join-with right', 'mode main']
+  # move app to workspace and switch
+  cmd-ctrl-1 = ['move-node-to-workspace 1',  'workspace 1']
+  cmd-ctrl-2 = ['move-node-to-workspace 2',  'workspace 2']
+  cmd-ctrl-3 = ['move-node-to-workspace 3',  'workspace 3']
+  cmd-ctrl-4 = ['move-node-to-workspace 4',  'workspace 4']
+  cmd-ctrl-5 = ['move-node-to-workspace 5',  'workspace 5']
+  cmd-ctrl-6 = ['move-node-to-workspace 6',  'workspace 6']
+  cmd-ctrl-7 = ['move-node-to-workspace 7',  'workspace 7']
+  cmd-ctrl-8 = ['move-node-to-workspace 8',  'workspace 8']
+  cmd-ctrl-9 = ['move-node-to-workspace 9',  'workspace 9']
+  cmd-ctrl-0 = ['move-node-to-workspace 10', 'workspace 10']
 
-# workspace quick switching
-cmd-tab = 'workspace-back-and-forth'
-cmd-shift-tab = 'move-workspace-to-monitor --wrap-around next'
+  # workaround for now to open firefox if its not already open in 1 or 4
+  ctrl-cmd-f = '''exec-and-forget open -na Firefox'''
+  ctrl-cmd-t = '''exec-and-forget open -na Kitty'''
+  ctrl-cmd-g = '''exec-and-forget open -na Ghostty'''
 
-# Workaround for now to open firefox if its not already open in 1 or 4
-ctrl-b = '''exec-and-forget open -na Firefox'''
-ctrl-t = '''exec-and-forget open -na Kitty'''
-
-# fullscreen
-cmd-ctrl-f = 'fullscreen'
-
-[workspace-to-monitor-force-assignment]
-1 = 'dell'
-2 = 'dell'
-3 = 'dell'
-4 = 'dell'
-5 = 'dell'
-6 = 'dell'
-7 = 'dell'
-8 = 'dell'
-9 = '^Built-in Retina Display$'
-10 = '^Built-in Retina Display$'
+  # enforce default workspace locations
+  # https://nikitabobko.github.io/AeroSpace/commands#move-workspace-to-monitor
+  # major cap. only recognized options are (next|prev)
+  # cmd-ctrl-alt-enter = [
+  #   'move-workspace-to-monitor --workspace 1 main',
+  #   'move-workspace-to-monitor --workspace 2 main',
+  #   'move-workspace-to-monitor --workspace 3 main',
+  #   'move-workspace-to-monitor --workspace 4 main',
+  #   'move-workspace-to-monitor --workspace 5 main',
+  #   'move-workspace-to-monitor --workspace 6 main',
+  #   'move-workspace-to-monitor --workspace 7 main',
+  #   'move-workspace-to-monitor --workspace 8 secondary',
+  #   'move-workspace-to-monitor --workspace 9 secondary',
+  #   'move-workspace-to-monitor --workspace 10 secondary',
+  # ]
 
 # ⎧                                        ⎫
 # ⎨  App Specific Workspaces               ⎬
 # ⎩  aerospace list-apps                   ⎭
+# assign workspaces to monitors
+[workspace-to-monitor-force-assignment]
+  1 =  'main|secondary'
+  2 =  'main|secondary'
+  3 =  'main|secondary'
+  4 =  'main|secondary'
+  5 =  'main|secondary'
+  6 =  'main|secondary'
+  7 =  'main|secondary'
+  8 =  'secondary|main'
+  9 =  'secondary|main'
+  10 = 'secondary|main'
 
 # 1. Browsers - Work
 # [[on-window-detected]]
@@ -127,6 +143,9 @@ cmd-ctrl-f = 'fullscreen'
   run = 'move-node-to-workspace 2'
 [[on-window-detected]]
   if.app-id = 'com.apple.Terminal'
+  run = 'move-node-to-workspace 2'
+[[on-window-detected]]
+  if.app-id = 'com.mitchellh.ghostty'
   run = 'move-node-to-workspace 2'
 
 # 3 is open if i need to full screen smth rq
@@ -153,19 +172,19 @@ cmd-ctrl-f = 'fullscreen'
   if.app-id = 'com.microsoft.Word'
   run = 'move-node-to-workspace 5'
 
-# 8. Messaging
+# 6. Messaging
 [[on-window-detected]]
   if.app-id = 'com.apple.MobileSMS'
-  run = 'move-node-to-workspace 8'
+  run = 'move-node-to-workspace 6'
 [[on-window-detected]]
   if.app-id = 'com.hnc.Discord'
-  run = 'move-node-to-workspace 8'
+  run = 'move-node-to-workspace 6'
 [[on-window-detected]]
   if.app-id = 'com.microsoft.teams2'
-  run = 'move-node-to-workspace 8'
+  run = 'move-node-to-workspace 6'
 [[on-window-detected]]
   if.app-id = 'com.tinyspec.slackmacgap'
-  run = 'move-node-to-workspace 8'
+  run = 'move-node-to-workspace 6'
 
 # 9. Util
 [[on-window-detected]]
@@ -181,11 +200,20 @@ cmd-ctrl-f = 'fullscreen'
   run = 'move-node-to-workspace 10'
 
 # ⎧                                        ⎫
+# ⎨  Ignored Apps                          ⎬
+# ⎩                                        ⎭
+[[on-window-detected]]
+  if.app-id = 'com.apple.finder'
+  run = 'layout floating'
+[[on-window-detected]]
+  if.app-id = 'com.apple.systempreferences'
+  run = 'layout floating'
+
+# ⎧                                        ⎫
 # ⎨  Service Mode Keymaps                  ⎬
 # ⎩                                        ⎭
 [mode.service.binding]
-esc = ['reload-config', 'mode main']
-r = ['flatten-workspace-tree', 'mode main'] # reset layout
-f = ['layout floating tiling', 'mode main'] # Toggle between floating and tiling layout
-backspace = ['close-all-windows-but-current', 'mode main']
-
+  esc = 'mode main'
+  r = ['flatten-workspace-tree', 'mode main'] # reset layout
+  f = ['layout floating tiling', 'mode main'] # Toggle between floating and tiling layout
+  backspace = ['close-all-windows-but-current', 'mode main']

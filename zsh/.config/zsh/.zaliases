@@ -1,15 +1,18 @@
 # general purpose
-alias daily='touch $(date +%Y%m%d).md'
-alias getlocalip='ipconfig getifaddr en0'
-alias idea='open -a Intellij\ IDEA'
+alias daily='touch $(date +%Y-%m-%d).md'
+alias localip='ipconfig getifaddr en0'
 alias ij='~/packages/derby10/bin/ij'
-alias kp='killall -9 wine64-preloader'
-alias quickubuntu='docker run -it -e DISPLAY=$(ipconfig getifaddr en0):0 --name ubuntu ubuntu'
+
+# apps
+alias idea='open -a Intellij\ IDEA'
+alias kwp='killall -9 wine64-preloader'
 alias rover='open -a RustRover'
+alias word='open -a Microsoft\ Word'
 
 # kitty
-alias kitty-themes='kitty +kitten themes'
 alias whiskers='rm /var/folders/*/*/*/com.apple.dock.iconcache; killall Dock'
+alias themes='kitty +kitten themes'
+alias fonts='kitty +list-fonts'
 [ "$TERM" = "xterm-kitty" ] && alias ssh="kitty +kitten ssh"
 
 # util
@@ -23,19 +26,35 @@ alias h='history'
 alias l='ls -lA'
 alias la='ls -lA'
 alias ll='ls -l'
-alias ls='ls --color=auto'
+alias ls='ls -G'
+alias n='nvim'
 alias path='echo $PATH | tr ":" "\n"'
 alias reman='man $(fc -ln -1 | awk "{print $1}")'
+alias tree='tree -C'
 alias vim='nvim'
 
 # docker
+alias ubuntu='docker run -it ubuntu bash'
+alias deit='docker exec -it'
+alias dpsa='docker ps -a'
+alias dspf='docker system prune -f'
+alias dipaf='docker image prune -af'
+alias dbt='docker build . -t'
 
 # pass
 alias bp='pass show -c email/microsoft/baylor'
 
 # tmux
+alias _tmux="if [ $(command -v tmux-direrizer) ]; then tmux-direrizer; else echo 'Is tmux-direrizer in ~/.local/bin and is ~/.local/bin on your path?' >&2; fi"
+alias _t="_tmux"
 alias t='tmux'
-alias ta='tmux attach -t $(tmux ls | tr ":" " " | awk "{print \$1}" | fzf)'
+alias ta='tmux attach -t'
+# attach to session
+if [[ "$TERM" = "tmux-256color" ]]; then
+  alias tas='tmux switch-client -t $(tmux ls | tr ":" " " | awk "{print \$1}" | fzf)'
+else
+  alias tas='tmux attach -t $(tmux ls | tr ":" " " | awk "{print \$1}" | fzf)'
+fi
 # kill this session
 alias texit="tmux kill-session -t $(tmux display-message -p '#S')"
 # kill all sessions except for this one
@@ -44,8 +63,9 @@ alias tksa='tmux kill-session -a'
 alias tkst='tmux kill-session -t'
 # kill everything
 alias tksv='tmux kill-server'
-alias tl='tmux ls'
+alias tkw='tmux kill-window'
 alias tls='tmux ls'
+alias tn='tmux new-session -s'
 alias trs='tmux rename-session -t'
 
 # git

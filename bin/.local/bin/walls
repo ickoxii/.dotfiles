@@ -1,0 +1,82 @@
+#!/bin/bash
+# TODO: buffer the preview of images in fzf so that our system doesn't
+#   get overloaded if we scroll through too many too fast
+#   look into this https://github.com/junegunn/fzf/blob/master/bin/fzf-preview.sh
+
+wallpaper_dir=$1
+
+# check dependencies and arguments
+if [[ ! -d "${wallpaper_dir}" ]]; then
+  echo "no dir :(" >&2
+  exit 1
+fi
+
+if [[ -z $(command -v kitten) ]]; then
+  echo "kitten not found :(" >&2
+  exit 1
+fi
+
+if [[ -z $(command -v chafa) ]]; then
+  echo "chafa not found :(" >&2
+  exit 1
+fi
+
+# chafa --format kitty waves.png
+case "$TERM" in
+  xterm-kitty|xterm-ghostty|tmux-256color)
+    ;;
+  *)
+    echo "unsupported terminal :(" >&2
+    exit 1
+    ;;
+esac
+
+# sorry bro pull out color picker or some shit and start counting
+char_width=9
+char_height=20
+
+# cols=$([ -n $COLUMNS ] && echo "$COLUMNS" || echo "$(tput cols)")
+# rows=$([ -n $LINES ] && echo "$LINES" || echo "$(tput lines)")
+
+cols=$(tput cols)
+rows=$(tput lines)
+
+echo "cols: $cols"
+echo "rows: $rows"
+
+term_width=$(expr $cols \* $char_width)
+term_height=$(expr $rows \* $char_height)
+
+wallpapers=$(find "$wallpaper_dir" -type f -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*png')
+if [[ "$wallpaper_dir" == "." ]]; then
+  wallpaper_dir=$(realpath .)
+fi
+base_name=$(basename "$wallpaper_dir")
+
+selected=""
+
+if [[ $term_width -gt $term_height ]]; then
+  # JUST SEND OUTPUT TO DEV NULL LMAO
+  selected=$(echo "$wallpapers" | fzf --preview='kitten icat {} 2> /dev/null' \
+    --preview-window right:70% \
+    --height 100% \
+    --border \
+    --prompt="Select a wallpaper: " \
+    --header="Wallpapers in \"$base_name\"" \
+    --layout=default)
+else
+  selected=$(echo "$wallpapers" | fzf --preview='kitten icat {} 2> /dev/null' \
+    --preview-window top:60% \
+    --border \
+    --prompt="Select a wallpaper: " \
+    --header="Wallpapers in \"$base_name\"" \
+    --layout=default)
+fi
+
+if [[ -n "$selected" ]]; then
+  chafa "$selected" --format kitty \
+    --align center \
+    --clear
+fi
+
+exit 0

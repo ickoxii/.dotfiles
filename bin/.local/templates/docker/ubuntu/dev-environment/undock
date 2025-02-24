@@ -1,0 +1,14 @@
+#!/bin/bash
+
+container_name="dev-env-$(basename $(pwd))"
+
+if [[ $# -eq 1 ]]; then
+    container_name="$1"
+fi
+
+docker stop "$container_name"
+docker container rm "$container_name"
+
+echo "Consider running the following"
+echo "  docker image prune -af"
+echo "  docker system prune -f"

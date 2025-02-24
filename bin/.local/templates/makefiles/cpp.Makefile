@@ -4,15 +4,8 @@ VERSION = 0.1.0
 
 # Search paths
 vpath %.cpp src
+vpath %.h include
 vpath %.hpp include
-vpath %.o build
-
-# Compilation options
-CFLAGS := -Wall -Werror -Wextra -Wpedantic -std=c++20 -stdlib=libc++
-INCLUDES := -I include
-CC := clang++
-PROGRAM := #***** PROGRAM NAME *****#
-OUTPUT_OPTION = -o $@
 
 # Directories
 SRC_DIR = src
@@ -20,20 +13,32 @@ INCLUDE_DIR = include
 BUILD_DIR = build
 BIN_DIR = bin
 
+# Compilation options
+CFLAGS := $(shell cat compile_flags.txt | grep -Ev "^-I")
+INCLUDES := $(shell cat compile_flags.txt | grep -E "^.I")
+LINKS :=
+CC := g++
+PROGRAM := $(BIN_DIR)/main
+OUTPUT_OPTION = -o $@
+
 # Files
-SOURCES = $(wildcard $(SRC_DIR)/*.c)
+SOURCES = $(wildcard $(SRC_DIR)/*.cpp)
 HEADERS = $(wildcard $(INCLUDE_DIR)/*.h)
-OBJECTS = $(subst src,build,$(subst .c,.o,$(SOURCES)))
+OBJECTS = $(subst src,build,$(subst .cpp,.o,$(SOURCES)))
 
 # Targets
 all: build
 .PHONY: all
 
 info:
-	$(info SOURCES=$(SOURCES))
-	$(info HEADERS=$(HEADERS))
-	$(info OBJECTS=$(OBJECTS))
-	$(info PROGRAM=$(PROGRAM))
+	$(info CC       = $(CC))
+	$(info CFLAGS   = $(CFLAGS))
+	$(info INCLUDES = $(INCLUDES))
+	$(info LINKS    = $(LINKS))
+	$(info SOURCES  = $(SOURCES))
+	$(info HEADERS  = $(HEADERS))
+	$(info OBJECTS  = $(OBJECTS))
+	$(info PROGRAM  = $(PROGRAM))
 .PHONY: info
 
 help: ## Help function
@@ -51,9 +56,9 @@ build: $(PROGRAM)
 .PHONY: build
 
 $(PROGRAM): $(OBJECTS)
-	$(CC) $(OBJECTS) $(OUTPUT_OPTION)
+	$(CC) $(OBJECTS) $(LINKS) $(OUTPUT_OPTION)
 
-$(BUILD_DIR)/%.o: %.c
+$(BUILD_DIR)/%.o: %.cpp
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< $(OUTPUT_OPTION)
 
 valgrind: $(PROGRAM)

@@ -1,0 +1,19 @@
+# ui/ux
+theme = dark:rose-pine,light:rose-pine-moon
+background-opacity = 0.69
+background-blur-radius = 10
+window-padding-x = 10
+window-padding-y = 4,1
+
+# behavior
+quick-terminal-animation-duration = 0
+macos-titlebar-style = hidden
+working-directory = home
+quit-after-last-window-closed = true
+shell-integration = detect
+mouse-hide-while-typing = true
+
+# font/keyboard
+font-size = 14
+# cursor-style = block
+# cursor-style-blink = false

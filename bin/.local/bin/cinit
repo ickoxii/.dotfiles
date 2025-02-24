@@ -1,0 +1,173 @@
+#!/bin/bash
+
+usage() {
+  echo "Usage: $0 [options]"
+  echo "  -l, --lang <language>           Specify the language (c/cpp)"
+  echo "  -d, --dockerize                Containerize into a dockerfile (y/n)"
+  echo "  -b, --baylor                   Baylor project? (y/n)"
+  echo "  -s, --scope <scope>             Compile flags scope (base|extreme|strict|b/extreme|e/strict|s)"
+  echo "  -std, --std <std_flag>          Select the standard (e.g., c89, c99, gnu17)"
+  exit 1
+}
+
+#
+# Parse command-line arguments
+#
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    -l|--lang)
+      lang="$2"
+      shift 2
+      ;;
+    -d|--dockerize)
+      dockerize="$2"
+      shift 2
+      ;;
+    -b|--baylor)
+      bu="$2"
+      shift 2
+      ;;
+    -s|--scope)
+      scope="$2"
+      shift 2
+      ;;
+    -std|--std)
+      std_flag="$2"
+      shift 2
+      ;;
+    *)
+      usage
+      ;;
+  esac
+done
+
+#
+# Check if for lang
+#
+if [[ -z "$lang" ]]; then
+  read -p "Choose a language (c/cpp): " lang
+fi
+case $lang in
+  c|cpp)
+    echo "Setting up for $lang..."
+    ;;
+  *)
+    echo "Language not supported. Supported languages: c, cpp"
+    usage
+    ;;
+esac
+
+#
+# Containerize in docker?
+#
+if [[ -z "$dockerize" ]]; then
+  read -p "Containerize into a dockerfile? (y/n): " dockerize
+fi
+if [[ "$dockerize" == "y" || "$dockerize" == "Y" || "$dockerize" == "yes" ]]; then
+  cp ~/.local/templates/docker/ubuntu/dev-environment/* ./
+  cp ~/.dotfiles/remote/.vimrc ./
+  cp ~/.dotfiles/remote/.bashrc ./
+  mkdir work
+  cd work
+fi
+
+#
+# Setup config files and directory structure
+#
+echo "Setting up editorconfigs..."
+cp ~/.local/templates/editorconfigs/base.editorconfig .editorconfig
+cat ~/.local/templates/editorconfigs/${lang}.editorconfig >> .editorconfig
+cat ~/.local/templates/editorconfigs/make.editorconfig >> .editorconfig
+echo "Building directories..."
+mkdir -p src build bin include
+echo "Setting up makefile..."
+cp ~/.local/templates/makefiles/${lang}.Makefile Makefile
+echo "Setting up .gitignores..."
+> .gitignore  # Overwrite existing .gitignore
+cat \
+  ~/.local/templates/gitignores/base.gitignore \
+  ~/.local/templates/gitignores/${lang}.gitignore >> .gitignore
+
+#
+# Grab appropriate comment templates
+#
+if [[ -z "$bu" ]]; then
+  read -p "Baylor project? (y/n): " bu
+fi
+main="src/main.${lang}"
+touch $main
+case $bu in
+  y|Y|yes)
+    cat ~/.local/templates/comments/buheader.c >> $main
+    cat ~/.local/templates/comments/bupfc.c >> $main
+    ;;
+  *)
+    cat ~/.local/templates/comments/header.c >> $main
+    cat ~/.local/templates/comments/pfc.c >> $main
+    ;;
+esac
+
+#
+# Grab compile flags
+#
+if [[ -z "$scope" ]]; then
+  read -p "Choose compile flags (base|b/extreme|e/strict|s): " scope
+fi
+case $scope in
+  base|extreme|strict)
+    ;;
+  e) scope="extreme"
+    ;;
+  s) scope="strict"
+    ;;
+  b)
+    scope="base"
+    ;;
+  *) scope="base"
+    ;;
+esac
+cp ~/.local/templates/cflags/${scope}.${lang}.compile_flags.txt compile_flags.txt
+
+#
+# Choose std version
+#
+if [[ -z "$std_flag" ]]; then
+  c_std_flags=( "c89" "c90" "iso9899:1990" "iso9899:199409" "gnu89"
+    "gnu90" "c99" "iso9899:1999" "gnu99" "c11" "iso9899:2011"
+    "gnu11" "c17" "iso9899:2017" "gnu17" )
+  cpp_std_flags=( "c++98" "c++03" "gnu++98" "c++11" "gnu++11" "c++14" "gnu++14"
+    "c++17" "gnu++17" "c++20" "gnu++20" "c++2b" "gnu++2b" )
+
+  # Set appropriate standard choices
+  if [[ "$lang" == "c" ]]; then
+    std_flags=("${c_std_flags[@]}")
+  else
+    std_flags=("${cpp_std_flags[@]}")
+  fi
+
+  # Show the list of available -std flags based on the language
+  echo "Select the desired -std flag for $lang:"
+  for i in "${!std_flags[@]}"; do
+    echo "$((i + 1)). ${std_flags[$i]}"
+  done
+  read -p "Enter the number of your choice: " choice
+  if [[ "$choice" -ge 1 && "$choice" -le "${#std_flags[@]}" ]]; then
+    std_flag="${std_flags[$((choice - 1))]}"
+  else
+    echo "Invalid choice. defaulting to clang standard"
+    if [[ $lang == "c" ]]; then
+      std_flag="gnu17"
+    else
+      std_flag="gnu++98"
+    fi
+  fi
+fi
+
+#
+# Set standard
+#
+echo "Using standard: -std=$std_flag"
+sed -i '' -E "s/^(-std=).*$/\1${std_flag}/" compile_flags.txt
+
+echo "Project setup complete!"
+

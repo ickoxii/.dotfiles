@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+# used for csi4321 networking to containerize our project
+
+BASE_NAME="$(basename $(pwd))"
+ACTIVE="$(docker ps | grep ${BASE_NAME})"
+
+function init() {
+  # Pull the image from Docker Hub
+  docker pull acfreeman/rustnetworking
+  
+  # Mount the current directory and run in detached mode so the container
+  # does not stop on exit
+  docker run -dit \
+    --cap-add=NET_ADMIN \
+    --privileged \
+    --name "${BASE_NAME}" \
+    -v "$(pwd):/${BASE_NAME}" \
+    -w "/${BASE_NAME}" \
+    acfreeman/rustnetworking
+}
+
+if [ ! $(ls -la | grep "Cargo\.toml") ]; then
+  echo "Cargo.toml not found"
+  exit 1
+fi
+
+# just exec into container if already running
+if [ -z "${EXISTS}" ] && [ -z "${ACTIVE}" ]; then
+  init
+elif [ -s "${EXISTS}" ]; then
+  docker start "${BASE_NAME}"
+#else skip to exec
+fi
+
+# Enter the container (if the container is already running or was started detached)
+docker exec -it "${BASE_NAME}" /bin/bash
+

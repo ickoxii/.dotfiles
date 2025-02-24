@@ -1,6 +1,12 @@
--std=gnu89
+-std=c17
 -Iinclude
 -Wall
 -Werror
 -Wextra
 -Wpedantic
+-Wshadow
+-Wdouble-promotion
+-Wformat
+-Wundef
+-fno-common
+-Wconversion

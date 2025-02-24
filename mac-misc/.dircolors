@@ -1,0 +1,11 @@
+# Used to build LS_COLORS for GNULinux based commands like tree
+NORMAL  00;38;5;007   # Normal files
+DIR     00;38;5;002   # Directories
+LINK    00;38;5;005   # Symlink
+FIFO    00;38;5;006   # Named pipe
+SOCK    00;38;5;004   # Socket
+EXEC    00;38;5;001   # Executable
+BD      00;38;5;007   # Block device
+CD      00;38;5;007   # Character device
+STICKY  00;38;5;003   # Directory writable by others, with sticky bit
+REGULAR 00;38;5;003   # Readable files

@@ -1,0 +1,11 @@
+
+# C/CPP
+bin/
+build/
+!build/compile_commands.json
+*.d
+*.o
+*.exe
+*.out
+*.dSYM/
+

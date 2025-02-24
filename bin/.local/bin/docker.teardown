@@ -1,6 +1,12 @@
 #!/usr/bin/env bash
 
-BASE_NAME="$(pwd | grep -oE '[^/]+$')"
+BASE_NAME=$(basename $(pwd))
+
+# exit if not in rust project
+if [ ! $(ls -la | grep "Cargo\.toml") ]; then
+  echo "Cargo.toml not found"
+  exit 1
+fi
 
 # Stop the container
 docker stop ${BASE_NAME}

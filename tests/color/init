@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+# run me first
+
+mkdir -p test && cd test
+
+touch normal_file
+#01 directory
+mkdir 01_test_dir
+#02 symbolic links
+ln -s normal_file 02_symlink
+#03 sockets
+nc -lU 03_test_socket &
+#04 pipes
+mkfifo 04_named_pipe
+#05 executables
+touch 05_exec
+chmod u+x 05_exec
+#06 block special
+#07 character special
+#08 executable with setuid bit set
+#09 executable with setgid bit set
+#10 directory writable to others, with sticky bit
+mkdir 10_sticky_dir
+chmod 1777 10_sticky_dir
+#11 directory writable to others, without sticky bit

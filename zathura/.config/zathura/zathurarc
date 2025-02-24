@@ -1,0 +1,19 @@
+# https://github.com/homebrew-zathura/homebrew-zathura
+# https://github.com/dracula/zathura/blob/master/zathurarc
+# https://www.reddit.com/r/unixporn/comments/eq1714/i3_zathura_with_proper_transparency/
+#
+# ctrl-r to toggle between dark and light mode
+
+set window-title-basename "true"
+set selection-clipboard "clipboard"
+# set default-bg rgba(22,22,22,0.85)
+
+# transparent background
+# r = 0.765625
+# g = 0.65234375
+# b = 0.90234375
+set default-bg rgba(15,13,18,0.85)
+set recolor-lightcolor rgba(0,0,0,0)
+
+set adjust-open best-fit # [width|best-fit]
+set recolor true
