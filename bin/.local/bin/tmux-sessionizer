@@ -22,7 +22,7 @@ function get_base_name() {
 if [[ $# -eq 1 ]]; then
   selected=$1
 else
-  selected=$(find ~/projects ~/baylor/projects ~/baylor/classes ~ -mindepth 1 -maxdepth 1 -type d | fzf)
+  selected=$(find ~/projects ~/baylor/projects ~/baylor/classes ~/personal ~/work ~ -mindepth 1 -maxdepth 1 -type d | fzf)
 fi
 
 # DBG
