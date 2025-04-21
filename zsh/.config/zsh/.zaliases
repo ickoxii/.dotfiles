@@ -1,5 +1,5 @@
 # general purpose
-alias daily='touch $(date +%Y-%m-%d).md'
+alias daily='touch $(date +%Y%m%d).md'
 alias localip='ipconfig getifaddr en0'
 alias ij='~/packages/derby10/bin/ij'
 
@@ -79,3 +79,6 @@ alias gp='git pull'
 alias gr='git remote -v'
 alias grsh='git reset --soft HEAD~1'
 alias gs='git status'
+
+# rust
+alias ctnff='cargo test --no-fail-fast'

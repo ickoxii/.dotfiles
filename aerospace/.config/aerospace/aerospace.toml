@@ -3,7 +3,7 @@
 # ⎩                                        ⎭
 after-login-command = []
 after-startup-command = [
-  'exec-and-forget borders active_color=0xff775759 inactive_color=0xff555555 width=5.0'
+  'exec-and-forget borders active_color=0xff775759 inactive_color=0xff555555 width=3.0'
 ]
 start-at-login = false
 
@@ -16,18 +16,17 @@ accordion-padding = 30
 default-root-container-layout = 'tiles'
 key-mapping.preset = 'qwerty'
 default-root-container-orientation = 'auto'
-# on-focus-changed = ['move-mouse window-lazy-center']
 
 # ⎧                                        ⎫
 # ⎨  Padding                               ⎬
 # ⎩                                        ⎭
 [gaps]
-inner.horizontal = 5
-inner.vertical =   5
-outer.left =       5
-outer.bottom =     5
-outer.top =        5
-outer.right =      5
+inner.horizontal = 3
+inner.vertical =   3
+outer.left =       3
+outer.bottom =     3
+outer.top =        3
+outer.right =      3
 
 # ⎧                                        ⎫
 # ⎨  Main Mode Keymaps                     ⎬
@@ -52,7 +51,7 @@ outer.right =      5
   cmd-shift-k = 'move up'
   cmd-shift-l = 'move right'
 
-  # join tiles into a parent container (because aerospace doesn't do bsp natively)
+  # join tiles into a parent container
   cmd-ctrl-h = ['join-with left', 'mode main']
   cmd-ctrl-j = ['join-with down', 'mode main']
   cmd-ctrl-k = ['join-with up', 'mode main']
@@ -95,47 +94,42 @@ outer.right =      5
   cmd-ctrl-9 = ['move-node-to-workspace 9',  'workspace 9']
   cmd-ctrl-0 = ['move-node-to-workspace 10', 'workspace 10']
 
-  # workaround for now to open firefox if its not already open in 1 or 4
+  # open applications
   ctrl-cmd-f = '''exec-and-forget open -na Firefox'''
   ctrl-cmd-t = '''exec-and-forget open -na Kitty'''
   ctrl-cmd-g = '''exec-and-forget open -na Ghostty'''
+  ctrl-cmd-d = '''exec-and-forget open -na Docker\ Desktop'''
 
-  # enforce default workspace locations
-  # https://nikitabobko.github.io/AeroSpace/commands#move-workspace-to-monitor
-  # major cap. only recognized options are (next|prev)
-  # cmd-ctrl-alt-enter = [
-  #   'move-workspace-to-monitor --workspace 1 main',
-  #   'move-workspace-to-monitor --workspace 2 main',
-  #   'move-workspace-to-monitor --workspace 3 main',
-  #   'move-workspace-to-monitor --workspace 4 main',
-  #   'move-workspace-to-monitor --workspace 5 main',
-  #   'move-workspace-to-monitor --workspace 6 main',
-  #   'move-workspace-to-monitor --workspace 7 main',
-  #   'move-workspace-to-monitor --workspace 8 secondary',
-  #   'move-workspace-to-monitor --workspace 9 secondary',
-  #   'move-workspace-to-monitor --workspace 10 secondary',
-  # ]
+# ⎧                                        ⎫
+# ⎨  Service Mode Keymaps                  ⎬
+# ⎩                                        ⎭
+[mode.service.binding]
+  esc = 'mode main'
+  r = ['flatten-workspace-tree', 'mode main'] # reset layout
+  f = ['layout floating tiling', 'mode main'] # Toggle between floating and tiling layout
+  backspace = ['close-all-windows-but-current', 'mode main']
 
 # ⎧                                        ⎫
 # ⎨  App Specific Workspaces               ⎬
-# ⎩  aerospace list-apps                   ⎭
+# ⎩                                        ⎭
 # assign workspaces to monitors
 [workspace-to-monitor-force-assignment]
-  1 =  'main|secondary'
-  2 =  'main|secondary'
-  3 =  'main|secondary'
-  4 =  'main|secondary'
-  5 =  'main|secondary'
-  6 =  'main|secondary'
-  7 =  'main|secondary'
-  8 =  'secondary|main'
-  9 =  'secondary|main'
-  10 = 'secondary|main'
+  1 =  'DELL*|main'
+  2 =  'DELL*|main'
+  3 =  'DELL*|main'
+  4 =  'DELL*|main'
+  5 =  'DELL*|main'
+  6 =  'DELL*|main'
+  7 =  'DELL*|main'
+  8 =  'built-in*|secondary'
+  9 =  'built-in*|secondary'
+  10 = 'built-in*|secondary'
 
 # 1. Browsers - Work
-# [[on-window-detected]]
-#   if.app-id = 'org.mozilla.firefox'
-#   run = 'move-node-to-workspace 1'
+[[on-window-detected]]
+  if.app-id = 'org.mozilla.firefox'
+  check-further-callbacks = true
+  run = 'move-node-to-workspace 1'
 
 # 2. Terminals
 [[on-window-detected]]
@@ -147,8 +141,11 @@ outer.right =      5
 [[on-window-detected]]
   if.app-id = 'com.mitchellh.ghostty'
   run = 'move-node-to-workspace 2'
+[[on-window-detected]]
+  if.app-name-regex-substring = 'zathura'
+  run = 'move-node-to-workspace 2'
 
-# 3 is open if i need to full screen smth rq
+# 3. Open (IDEs, etc.)
 [[on-window-detected]]
   if.app-id = 'com.jetbrains.rustrover'
   run = 'move-node-to-workspace 3'
@@ -163,6 +160,12 @@ outer.right =      5
 [[on-window-detected]]
   if.app-id = 'com.google.Chrome'
   run = 'move-node-to-workspace 4'
+[[on-window-detected]]
+  if.app-id = 'com.duckduckgo.macos.browser'
+  run = 'move-node-to-workspace 4'
+[[on-window-detected]]
+  if.app-id = 'org.mozilla.firefox'
+  run = 'move-node-to-workspace 4'
 
 # 5. Workstations
 [[on-window-detected]]
@@ -170,6 +173,12 @@ outer.right =      5
   run = 'move-node-to-workspace 5'
 [[on-window-detected]]
   if.app-id = 'com.microsoft.Word'
+  run = 'move-node-to-workspace 5'
+[[on-window-detected]]
+  if.app-name-regex-substring = 'net.java.openjdk.java'
+  run = 'move-node-to-workspace 5'
+[[on-window-detected]]
+  if.app-id = 'org.wireshark.Wireshark'
   run = 'move-node-to-workspace 5'
 
 # 6. Messaging
@@ -186,6 +195,11 @@ outer.right =      5
   if.app-id = 'com.tinyspec.slackmacgap'
   run = 'move-node-to-workspace 6'
 
+# 8. Safari Web Apps
+[[on-window-detected]]
+  if.app-name-regex-substring = 'Twitch'
+  run = 'move-node-to-workspace 8'
+
 # 9. Util
 [[on-window-detected]]
   if.app-id = 'com.nordvpn.macos'
@@ -198,6 +212,9 @@ outer.right =      5
 [[on-window-detected]]
   if.app-id = 'com.spotify.client'
   run = 'move-node-to-workspace 10'
+[[on-window-detected]]
+  if.app-name-regex-substring = 'YT Music'
+  run = 'move-node-to-workspace 10'
 
 # ⎧                                        ⎫
 # ⎨  Ignored Apps                          ⎬
@@ -208,12 +225,14 @@ outer.right =      5
 [[on-window-detected]]
   if.app-id = 'com.apple.systempreferences'
   run = 'layout floating'
+[[on-window-detected]]
+  if.app-id = 'com.apple.ScreenContinuity'
+  run = 'layout floating'
+[[on-window-detected]]
+  if.app-id = 'net.rafaelconde.Hand-Mirror'
+  run = 'layout floating'
 
-# ⎧                                        ⎫
-# ⎨  Service Mode Keymaps                  ⎬
-# ⎩                                        ⎭
-[mode.service.binding]
-  esc = 'mode main'
-  r = ['flatten-workspace-tree', 'mode main'] # reset layout
-  f = ['layout floating tiling', 'mode main'] # Toggle between floating and tiling layout
-  backspace = ['close-all-windows-but-current', 'mode main']
+# Catch-all
+[[on-window-detected]]
+  run = 'layout floating'
+  # run = 'move-node-to-workspace 7'

@@ -4,6 +4,17 @@
 #
 # ctrl-r to toggle between dark and light mode
 
+set page-padding 1
+map u scroll half-up
+map d scroll half-down
+map D toggle_page_mode
+map r reload
+map R rotate
+map K zoom in
+map J zoom out
+map i recolor
+map p print
+
 set window-title-basename "true"
 set selection-clipboard "clipboard"
 # set default-bg rgba(22,22,22,0.85)

@@ -62,8 +62,8 @@ export PATH="${PYTHON_HOME}/libexec/bin:${PATH}"
 #
 # Maven
 #
-# export M2_HOME="${HOME}/packages/apache-magen-3.9.6"
-# export PATH="${M2_HOME}/bin:${PATH}"
+export M2_HOME="${HOME}/packages/apache-maven-3.9.6"
+export PATH="${M2_HOME}/bin:${PATH}"
 
 #
 # JDK
@@ -86,4 +86,3 @@ export PATH="${JAVA_HOME}/bin:${PATH}"
 # if [ -f '/Users/ickoxii/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/ickoxii/google-cloud-sdk/path.zsh.inc'; fi
 # shell command completion for gcloud
 # if [ -f '/Users/ickoxii/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/ickoxii/google-cloud-sdk/completion.zsh.inc'; fi
-
