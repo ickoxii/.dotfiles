@@ -68,7 +68,8 @@ export PATH="${M2_HOME}/bin:${PATH}"
 #
 # JDK
 #
-export JAVA_HOME="/Library/Java/JavaVirtualMachines/openjdk-17.jdk/Contents/Home"
+export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk-22.jdk/Contents/Home"
+# export JAVA_HOME="/Library/Java/JavaVirtualMachines/openjdk-17.jdk/Contents/Home"
 export PATH="${JAVA_HOME}/bin:${PATH}"
 
 #
@@ -80,9 +81,11 @@ export PATH="${JAVA_HOME}/bin:${PATH}"
 #
 # Google Cloud CLI
 #
-# export GCLOUD_HOME="${HOME}/packages/google-cloud-sdk"
-# export PATH="${GCLOUD_HOME}/bin:${PATH}"
+export GCLOUD_HOME="${HOME}/packages/google-cloud-sdk"
+export PATH="${GCLOUD_HOME}/bin:${PATH}"
+
 # update PATH for google cloud sdk
-# if [ -f '/Users/ickoxii/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/ickoxii/google-cloud-sdk/path.zsh.inc'; fi
+if [ -f '/Users/ickoxii/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/ickoxii/google-cloud-sdk/path.zsh.inc'; fi
+
 # shell command completion for gcloud
-# if [ -f '/Users/ickoxii/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/ickoxii/google-cloud-sdk/completion.zsh.inc'; fi
+if [ -f '/Users/ickoxii/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/ickoxii/google-cloud-sdk/completion.zsh.inc'; fi

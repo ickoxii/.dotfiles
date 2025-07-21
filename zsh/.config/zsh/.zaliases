@@ -2,6 +2,7 @@
 alias daily='touch $(date +%Y%m%d).md'
 alias localip='ipconfig getifaddr en0'
 alias ij='~/packages/derby10/bin/ij'
+alias latexindent='~/.local/share/nvim/mason/bin/latexindent'
 
 # apps
 alias idea='open -a Intellij\ IDEA'
@@ -19,14 +20,13 @@ alias fonts='kitty +list-fonts'
 alias c='clear'
 # if you accidentally cd into a file
 alias cdir='cd "$(fc -ln -1 | awk "{print \$2}" | sed -E "s|/[^/]+$||" | sed "s|^~|$HOME|")"'
-alias e='exit'
 alias ffs='sudo $(fc -ln -1)'
 alias grep='grep --color=auto'
 alias h='history'
 alias l='ls -lA'
 alias la='ls -lA'
 alias ll='ls -l'
-alias ls='ls -G'
+alias ls='ls --color=auto'
 alias n='nvim'
 alias path='echo $PATH | tr ":" "\n"'
 alias reman='man $(fc -ln -1 | awk "{print $1}")'
@@ -35,11 +35,8 @@ alias vim='nvim'
 
 # docker
 alias ubuntu='docker run -it ubuntu bash'
-alias deit='docker exec -it'
-alias dpsa='docker ps -a'
-alias dspf='docker system prune -f'
-alias dipaf='docker image prune -af'
-alias dbt='docker build . -t'
+# docker prune all
+alias dpa='docker image prune -af && docker system prune -f'
 
 # pass
 alias bp='pass show -c email/microsoft/baylor'
@@ -82,3 +79,7 @@ alias gs='git status'
 
 # rust
 alias ctnff='cargo test --no-fail-fast'
+
+# gcloud
+alias ssh-server-prod='gcloud compute ssh --zone "us-central1-c" "ascii-server-prod" --project "engaged-truth-457223-j6" --account "iben.ixi@gmail.com"'
+alias ssh-server-dev='gcloud compute ssh --zone "us-central1-f" "ascii-server-dev" --project "engaged-truth-457223-j6" --account "iben.ixi@gmail.com"'

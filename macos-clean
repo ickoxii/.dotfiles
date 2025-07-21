@@ -1,0 +1,12 @@
+#!/usr/bin/env zsh
+# Install dotfiles for macos
+
+if [[ -z $STOW_FOLDERS ]]; then
+  STOW_FOLDERS="aerospace,bin,ghostty,mac-misc,nvimrc,tmux,vim,zathura,zsh"
+fi
+
+if [[ -z $DOTFILES ]]; then
+  DOTFILES=$HOME/.dotfiles
+fi
+
+STOW_FOLDERS=$STOW_FOLDERS DOTFILES=$DOTFILES $DOTFILES/clean-env
