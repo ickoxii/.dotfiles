@@ -1,4 +1,6 @@
 -std=c++17
+-x
+c++
 -Iinclude
 -Wall
 -Werror

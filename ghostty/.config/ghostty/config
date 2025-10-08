@@ -1,5 +1,5 @@
 # ui/ux
-theme = dark:rose-pine,light:rose-pine-moon
+theme = dark:Rose Pine,light:Rose Pine Moon
 background-opacity = 0.69
 background-blur-radius = 10
 window-padding-x = 10
@@ -17,3 +17,6 @@ mouse-hide-while-typing = true
 font-size = 14
 # cursor-style = block
 # cursor-style-blink = false
+
+keybind = global:ctrl+grave_accent=toggle_quick_terminal
+quick-terminal-position = bottom

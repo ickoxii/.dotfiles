@@ -1,0 +1,11 @@
+-std=gnu++23
+-x
+c++
+-Iinclude
+-g
+-O2
+-static
+-Wl
+-Wl
+-lrt
+-lpthread

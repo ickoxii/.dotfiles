@@ -5,7 +5,7 @@ usage() {
   echo "  -l, --lang <language>           Specify the language (c/cpp)"
   echo "  -d, --dockerize                Containerize into a dockerfile (y/n)"
   echo "  -b, --baylor                   Baylor project? (y/n)"
-  echo "  -s, --scope <scope>             Compile flags scope (base|extreme|strict|b/extreme|e/strict|s)"
+  echo "  -s, --scope <scope>             Compile flags scope (base|extreme|strict|b/extreme|e/strict|s/foundations|f)"
   echo "  -std, --std <std_flag>          Select the standard (e.g., c89, c99, gnu17)"
   exit 1
 }
@@ -111,10 +111,10 @@ esac
 # Grab compile flags
 #
 if [[ -z "$scope" ]]; then
-  read -p "Choose compile flags (base|b/extreme|e/strict|s): " scope
+  read -p "Choose compile flags (base|b/extreme|e/strict|s/foundations|f): " scope
 fi
 case $scope in
-  base|extreme|strict)
+  base|extreme|strict|foundations)
     ;;
   e) scope="extreme"
     ;;
@@ -122,6 +122,9 @@ case $scope in
     ;;
   b)
     scope="base"
+    ;;
+  f)
+    scope="foundations"
     ;;
   *) scope="base"
     ;;
@@ -131,12 +134,14 @@ cp ~/.local/templates/cflags/${scope}.${lang}.compile_flags.txt compile_flags.tx
 #
 # Choose std version
 #
-if [[ -z "$std_flag" ]]; then
+if [[ ${scope} == "foundations" ]]; then
+  std_flag="gnu++23"
+elif [[ -z "$std_flag" ]]; then
   c_std_flags=( "c89" "c90" "iso9899:1990" "iso9899:199409" "gnu89"
     "gnu90" "c99" "iso9899:1999" "gnu99" "c11" "iso9899:2011"
     "gnu11" "c17" "iso9899:2017" "gnu17" )
   cpp_std_flags=( "c++98" "c++03" "gnu++98" "c++11" "gnu++11" "c++14" "gnu++14"
-    "c++17" "gnu++17" "c++20" "gnu++20" "c++2b" "gnu++2b" )
+    "c++17" "gnu++17" "c++20" "gnu++20" "c++2b" "gnu++2b" "gnu++23" )
 
   # Set appropriate standard choices
   if [[ "$lang" == "c" ]]; then
@@ -170,4 +175,3 @@ echo "Using standard: -std=$std_flag"
 sed -i '' -E "s/^(-std=).*$/\1${std_flag}/" compile_flags.txt
 
 echo "Project setup complete!"
-
