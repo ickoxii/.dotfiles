@@ -1,0 +1,220 @@
+# This is a demo config to showcase some of the most important commands.
+# It is meant to be changed and configured, as it is intentionally kept sparse.
+# For a (much) more advanced configuration example see my dotfiles:
+# https://github.com/FelixKratz/dotfiles
+
+PLUGIN_DIR="$CONFIG_DIR/plugins"
+
+##### Bar Appearance #####
+
+sketchybar --bar  position=top \
+                  shadow=on \
+                  height=32 \
+                  y_offset=2 \
+                  sticky=on \
+                  blur_radius=20 \
+                  # color=0xff38040e \
+                  border_color=0xff800e13 \
+                  corner_radius=8 \
+                  shadow=on \
+                  margin_left=8 \
+                  margin_right=8 \
+                  display=all
+
+##### Changing Defaults #####
+# We now change some default values, which are applied to all further items.
+# For a full list of all available item properties see:
+# https://felixkratz.github.io/SketchyBar/config/items
+
+default=(
+  padding_left=8
+  padding_right=8
+  icon.font="Symbols Nerd Font Mono:Regular:14.0"
+  label.font="FiraMono Nerd Font:Regular:14.0"
+  icon.color=0xffffffff
+  label.color=0xffffffff
+  icon.padding_left=2
+  icon.padding_right=2
+  label.padding_left=2
+  label.padding_right=2
+)
+sketchybar --default "${default[@]}"
+
+##### Adding Mission Control Space Indicators #####
+# Let's add some mission control spaces:
+# https://felixkratz.github.io/SketchyBar/config/components#space----associate-mission-control-spaces-with-an-item
+# to indicate active and available mission control spaces.
+
+# Spaces compatible with aerospace spaces
+SPACE_ICONS=( \
+  ""   # 1 firefox
+  ""   # 2 terminal
+  # ""   # 3 code / IDE
+  ""   # 3 code/ IDE
+  "󰊯"   # 4 chrome
+  ""   # 5 workstations
+  ""   # 6 messaging
+  ""   # 7 misc / free
+  "󰓓"   # 8 steam
+  # ""   # 9 utility
+  ""   # 9 utility
+  ""   # 10 spotify
+)
+SPACE_NAMES=("firefox" "terminal" "code" "chrome" "work" "messaging" "free" "steam" "utility" "spotify")
+
+for i in "${!SPACE_ICONS[@]}"; do
+  sid=$((i + 1))
+  space=(
+    icon="${SPACE_ICONS[i]}"
+    icon.padding_left=6
+    icon.padding_right=6
+    label.color=0xffc7c7c7
+    label.width=0
+    label.drawing=off
+    background.color=0x40333333
+    background.corner_radius=5
+    background.height=25
+    click_script="aerospace workspace $sid"
+  )
+  sketchybar --add item space.$sid left --set space.$sid "${space[@]}"
+done
+
+# Optional grouping for styling
+sketchybar --add bracket aerospace_spaces space.1 space.2 space.3 space.4 space.5 space.6 space.7 space.8 space.9 space.10 \
+           --set aerospace_spaces background.color=0x00640d14 background.drawing=on background.height=28
+
+##### Adding Left Items #####
+# We add some regular items to the left side of the bar, where
+# only the properties deviating from the current defaults need to be set
+
+sketchybar -m --add space firefox left \
+              --set firefox associated_space=1 \
+                            associated_display=1 \
+                            click_script="aerospace workspace 1" \
+                            background.color=0xff640d14 \
+                            background.drawing=off \
+              --subscribe firefox mouse.entered mouse.exited \
+              \
+              --add space terminal left \
+              --set terminal associated_space=2 \
+                            associated_display=2 \
+                            click_script="aerospace workspace 2" \
+                            background.color=0xff640d14 \
+                            background.drawing=off \
+              --subscribe terminal mouse.entered mouse.exited \
+              \
+              --add space code left \
+              --set code associated_space=3 \
+                            associated_display=3 \
+                            click_script="aerospace workspace 3" \
+                            background.color=0xff640d14 \
+                            background.drawing=off \
+              --subscribe code mouse.entered mouse.exited \
+              \
+              --add space chrome left \
+              --set chrome associated_space=4 \
+                            associated_display=4 \
+                            click_script="aerospace workspace 4" \
+                            background.color=0xff640d14 \
+                            background.drawing=off \
+              --subscribe chrome mouse.entered mouse.exited \
+              \
+              --add space workstations left \
+              --set workstations associated_space=5 \
+                            associated_display=5 \
+                            click_script="aerospace workspace 5" \
+                            background.color=0xff640d14 \
+                            background.drawing=off \
+              --subscribe workstations mouse.entered mouse.exited \
+              \
+              --add space messaging left \
+              --set messaging associated_space=6 \
+                            associated_display=6 \
+                            click_script="aerospace workspace 6" \
+                            background.color=0xff640d14 \
+                            background.drawing=off \
+              --subscribe messaging mouse.entered mouse.exited \
+              \
+              --add space free left \
+              --set free associated_space=7 \
+                            associated_display=7 \
+                            click_script="aerospace workspace 7" \
+                            background.color=0xff640d14 \
+                            background.drawing=off \
+              --subscribe free mouse.entered mouse.exited \
+              \
+              --add space steam left \
+              --set steam associated_space=8 \
+                            associated_display=8 \
+                            click_script="aerospace workspace 8" \
+                            background.color=0xff640d14 \
+                            background.drawing=off \
+              --subscribe steam mouse.entered mouse.exited \
+              \
+              --add space utility left \
+              --set utility associated_space=9 \
+                            associated_display=9 \
+                            click_script="aerospace workspace 9" \
+                            background.color=0xff640d14 \
+                            background.drawing=off \
+              --subscribe utility mouse.entered mouse.exited \
+              \
+              --add space spotify left \
+              --set spotify associated_space=10 \
+                            associated_display=10 \
+                            click_script="aerospace workspace 10" \
+                            background.color=0xff640d14 \
+                            background.drawing=off \
+              --subscribe spotify mouse.entered mouse.exited \
+
+##### Adding Middle Items #####
+
+sketchybar --add item front_app center \
+           --set front_app icon="" \
+                          icon.padding_right=8 \
+                          label.font="FiraMono Nerd Font:Regular:14.0" \
+                          label.color=0xffffffff \
+                          script="$PLUGIN_DIR/front_app.sh" \
+           --subscribe front_app front_app_switched
+
+##### Adding Right Items #####
+# In the same way as the left items we can add items to the right side.
+# Additional position (e.g. center) are available, see:
+# https://felixkratz.github.io/SketchyBar/config/items#adding-items-to-sketchybar
+
+# Some items refresh on a fixed cycle, e.g. the clock runs its script once
+# every 10s. Other items respond to events they subscribe to, e.g. the
+# volume.sh script is only executed once an actual change in system audio
+# volume is registered. More info about the event system can be found here:
+# https://felixkratz.github.io/SketchyBar/config/events
+
+sketchybar  --add item clock right \
+            --set clock update_freq=10 icon=  script="$PLUGIN_DIR/clock.sh" \
+            --add item volume right \
+            --set volume script="$PLUGIN_DIR/volume.sh" \
+            --subscribe volume volume_change \
+            --add item battery right \
+            --set battery update_freq=120 script="$PLUGIN_DIR/battery.sh" \
+            --subscribe battery system_woke power_source_change \
+            --add item app_highlight center \
+            --set app_highlight drawing=off script="$PLUGIN_DIR/front_app_highlight.sh" \
+            --subscribe app_highlight front_app_switched
+
+##### Add Brackets #####
+sketchybar -m --add bracket primary_spaces firefox \
+                                           terminal \
+                                           code \
+                                           chrome \
+                                           workstations \
+                                           free \
+                                           messaging \
+                                           steam \
+                                           utility \
+                                           spotify \
+              --set primary_spaces background.color=0xff640d14 \
+                                   background.drawing=off \
+                                   background.height=20
+
+
+##### Force all scripts to run the first time (never do this in a script) #####
+sketchybar --update

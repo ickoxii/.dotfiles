@@ -2,7 +2,7 @@
 # Install dotfiles for macos
 
 if [[ -z $STOW_FOLDERS ]]; then
-  STOW_FOLDERS="aerospace,bin,ghostty,mac-misc,nvimrc,tmux,vim,zathura,zsh"
+  STOW_FOLDERS="aerospace,bin,ghostty,mac-misc,nvimrc,tmux,vim,zathura,zsh,sketchybar"
 fi
 
 if [[ -z $DOTFILES ]]; then
