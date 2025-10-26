@@ -1,0 +1,68 @@
+# Minimal zshrc for container environments
+# No heavy plugins, just essentials
+
+# ⎧                                        ⎫
+# ⎨  Basic Settings                        ⎬
+# ⎩                                        ⎭
+set -o vi
+unsetopt BEEP
+unsetopt LIST_BEEP
+
+# ⎧                                        ⎫
+# ⎨  History                               ⎬
+# ⎩                                        ⎭
+HISTSIZE=5000
+HISTFILE=~/.zsh_history
+SAVEHIST=$HISTSIZE
+HISTDUP=erase
+
+setopt appendhistory
+setopt sharehistory
+setopt hist_ignore_space
+setopt hist_ignore_all_dups
+setopt hist_save_no_dups
+setopt hist_ignore_dups
+setopt hist_find_no_dups
+
+# ⎧                                        ⎫
+# ⎨  Simple Prompt                         ⎬
+# ⎩                                        ⎭
+autoload -U colors && colors
+PROMPT='%F{blue}%~%f %F{magenta}❯%f '
+
+# ⎧                                        ⎫
+# ⎨  Completions                           ⎬
+# ⎩                                        ⎭
+autoload -U compinit && compinit
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+
+# ⎧                                        ⎫
+# ⎨  Keybindings                           ⎬
+# ⎩                                        ⎭
+bindkey '^n' history-search-forward
+bindkey '^p' history-search-backward
+
+# ⎧                                        ⎫
+# ⎨  Essential Aliases                     ⎬
+# ⎩                                        ⎭
+alias c='clear'
+alias grep='grep --color=auto'
+alias h='history'
+alias l='ls -lA'
+alias la='ls -lA'
+alias ll='ls -l'
+alias ls='ls --color=auto'
+alias n='nvim'
+alias vim='nvim'
+
+# Git aliases
+alias gb='git branch'
+alias gf='git fetch --all'
+alias gl='git log --graph --oneline'
+alias gp='git pull'
+alias gst='git status'
+
+# Rust aliases
+alias ctnff='cargo test --no-fail-fast'
+
+echo "Minimal zsh config loaded"

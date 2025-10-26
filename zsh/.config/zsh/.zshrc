@@ -2,6 +2,11 @@
 # Plugins, keybinds, prompts, etc.
 # https://unix.stackexchange.com/questions/71253/what-should-shouldnt-go-in-zshenv-zshrc-zlogin-zprofile-zlogout
 
+if [[ -n "$container" ]] || [[ -n "$DOCKER_CONTAINER" ]] || [[ "$ZSH_MINIMAL" == "1" ]]; then
+  source ~/.config/zsh/.zshrc.minimal
+  return
+fi
+
 # ⎧                                        ⎫
 # ⎨  Init stuff                            ⎬
 # ⎩                                        ⎭
@@ -103,34 +108,3 @@ setopt hist_find_no_dups
 
 # Source aliases
 [[ -f ~/.config/zsh/.zaliases ]] && source ~/.config/zsh/.zaliases
-
-# set colors
-# Codes on kitty
-# a 'black' -> black
-# b 'red' -> red
-# c 'green' -> cyan
-# d 'brown' -> gold
-# e 'blue' -> blue
-# g 'cyan' -> salmon??
-#export LSCOLORS="CxFxExGxBxEgEdAbAgDxAd" # thiccc bois
-#export LSCOLORS="cxfxexgxbxegedabagdxad"
-
-# Launch new instance in tmux session
-# if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
-#   # Attach to latest default session
-#   DETACHED_ID=$(tmux list-sessions &> /dev/null | grep -E "^${USER}-[0-9]+:.*$" | grep -v "(attached)" | sort -nr | head -n 1 | sed -E "s/^${USER}-([0-9]+):.*$/\1/")
-#   if [ -n "${DETACHED_ID}" ]; then
-#     tmux attach-session -t "${USER}-${DETACHED_ID}"
-#     return
-#   fi
-#
-#   # If there is an attached session, increment its id and create new session
-#   ATTACHED_ID=$(tmux list-sessions &> /dev/null | grep -E "^${USER}-[0-9]+:.*\(attached\)$" | sort -nr | head -n 1 | sed -E "s/^${USER}-([0-9]+):.*$/\1/")
-#   if [ -n "${ATTACHED_ID}" ]; then
-#     tmux new-session -s "${USER}-$(expr ${ATTACHED_ID} + 1)"
-#     return
-#   fi
-#
-#   # Fine, I'll do it myself
-#   tmux new-session -s "${USER}-0"
-# fi
