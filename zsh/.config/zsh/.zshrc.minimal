@@ -28,7 +28,13 @@ setopt hist_find_no_dups
 # ⎨  Simple Prompt                         ⎬
 # ⎩                                        ⎭
 autoload -U colors && colors
-PROMPT='%F{blue}%~%f %F{magenta}❯%f '
+git_branch() {
+  local b
+  b=$(git rev-parse --abbrev-ref HEAD 2>/dev/null) || return
+  printf ' %s %s' '' "$b"
+}
+setopt prompt_subst
+PROMPT=$'%F{blue}%~%f$(git_branch)\n%F{magenta}❯%f '
 
 # ⎧                                        ⎫
 # ⎨  Completions                           ⎬
