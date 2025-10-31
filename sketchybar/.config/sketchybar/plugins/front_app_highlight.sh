@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -euo pipefail
 # https://coolors.co/palette/231942-5e548e-9f86c0-be95c4-e0b1cb
 
 # Query current workspace from AeroSpace

@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -euo pipefail
 # system_profiler -json SPBluetoothDataType
 # use jq to parse if connected or not?
 # dropdown menu to show all connected and unconnected but known devices
