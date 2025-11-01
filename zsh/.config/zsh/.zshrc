@@ -17,12 +17,12 @@ fi
 set -o vi
 
 # init fzf
-if command -v fzf >/dev/null 2>&1; then
+if command -v fzf &>/dev/null; then
   eval "$(fzf --zsh)"
 fi
 
 # init pyenv
-if command -v pyenv; then
+if command -v pyenv &>/dev/null; then
   eval "$(pyenv init -)"
   eval "$(pyenv virtualenv-init -)"
 fi
