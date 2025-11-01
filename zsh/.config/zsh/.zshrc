@@ -14,6 +14,20 @@ fi
 # if [ -f ~/.dircolors ] && command -v gdircolors > /dev/null 2>&1; then
 #   eval "$(gdircolors -b ~/.dircolors)"
 # fi
+set -o vi
+
+# init fzf
+if command -v fzf >/dev/null 2>&1; then
+  eval "$(fzf --zsh)"
+fi
+
+# init pyenv
+if command -v pyenv; then
+  eval "$(pyenv init -)"
+  eval "$(pyenv virtualenv-init -)"
+fi
+
+export PATH
 
 # Set directory for zinit and plugins
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"

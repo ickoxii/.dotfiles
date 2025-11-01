@@ -36,6 +36,9 @@ git_branch() {
 setopt prompt_subst
 PROMPT=$'%F{blue}%~%f$(git_branch)\n%F{magenta}❯%f '
 
+# Evals
+eval "$(fzf --zsh)"
+
 # ⎧                                        ⎫
 # ⎨  Completions                           ⎬
 # ⎩                                        ⎭
