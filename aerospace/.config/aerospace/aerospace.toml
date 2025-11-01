@@ -3,9 +3,17 @@
 # ⎩                                        ⎭
 after-login-command = []
 after-startup-command = [
-  'exec-and-forget borders active_color=0xff5E548E inactive_color=0xff555555 width=4.0'
+    'exec-and-forget borders active_color=0xff5E548E inactive_color=0xff555555 width=4.0',
+    'exec-and-forget sketchybar'
 ]
-start-at-login = false
+start-at-login = true
+
+# ⎧                                        ⎫
+# ⎨  OnWorkspaceChange execs               ⎬
+# ⎩                                        ⎭
+exec-on-workspace-change = ['/bin/bash', '-c',
+    'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE'
+]
 
 # ⎧                                        ⎫
 # ⎨  Globals                               ⎬
