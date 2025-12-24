@@ -174,10 +174,28 @@ outer.right =      4
     'layout floating',
     'move-node-to-workspace 4',
   ]
+[[on-window-detected]]
+  if.app-id = 'com.celeste'
+  run = 'move-node-to-workspace 4'
+# [[on-window-detected]]
+#   if.app-name-regex-substring = '.exe'
+#   run = 'move-node-to-workspace 4'
+[[on-window-detected]]
+  if.app-id = 'steamwebhelper.exe'
+  run = 'move-node-to-workspace 4'
+[[on-window-detected]]
+  if.app-id = 'Risk of Rain 2.exe'
+  run = 'move-node-to-workspace 4'
+[[on-window-detected]]
+  if.app-id = 'Risk of Rain Returns.exe'
+  run = 'move-node-to-workspace 4'
 
 # 5. Workstations
 [[on-window-detected]]
   if.app-id = 'org.virtualbox.app.VirtualBox'
+  run = 'move-node-to-workspace 5'
+[[on-window-detected]]
+  if.app-id = 'com.utmapp.UTM'
   run = 'move-node-to-workspace 5'
 [[on-window-detected]]
   if.app-id = 'com.microsoft.Word'
@@ -187,6 +205,9 @@ outer.right =      4
   run = 'move-node-to-workspace 5'
 [[on-window-detected]]
   if.app-id = 'org.wireshark.Wireshark'
+  run = 'move-node-to-workspace 5'
+[[on-window-detected]]
+  if.app-id = 'com.postmanlabs.mac'
   run = 'move-node-to-workspace 5'
 
 # 6. Messaging

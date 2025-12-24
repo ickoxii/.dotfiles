@@ -7,8 +7,10 @@ just run `./macos`
 # git init on new system
 
 ```
-git clone --recurse-submodules https://github.com/ickoxii/.dotfiles.git ~/.dotfiles
-git clone https://github.com/ickoxii/nvimrc.git ~/.dotfiles/nvimrc
+git \
+  -c url."https://github.com/".insteadOf=git@github.com: \
+  -c url."https://github.com/".insteadOf=ssh://git@github.com/ \
+  clone --recurse-submodules git@github.com:ickoxii/.dotfiles.git ~/.dotfiles
 
 sudo apt update && sudo apt upgrade
 sudo apt install -y neovim tmux fzf zsh stow
