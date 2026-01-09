@@ -35,6 +35,7 @@ alias vim='nvim'
 alias ubuntu='docker run -it ubuntu bash'
 # docker prune all
 alias dpa='docker image prune -af && docker system prune -f'
+alias dip='docker inspect -f "{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}"'
 
 # pass
 alias bp='pass show -c email/microsoft/baylor'
