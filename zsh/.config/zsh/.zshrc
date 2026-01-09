@@ -2,6 +2,8 @@
 # Plugins, keybinds, prompts, etc.
 # https://unix.stackexchange.com/questions/71253/what-should-shouldnt-go-in-zshenv-zshrc-zlogin-zprofile-zlogout
 
+export TMPDIR=$(getconf DARWIN_USER_TEMP_DIR)
+
 if [[ -n "$container" ]] || [[ -n "$DOCKER_CONTAINER" ]] || [[ "$ZSH_MINIMAL" == "1" ]]; then
   source ~/.config/zsh/.zshrc.minimal
   return
