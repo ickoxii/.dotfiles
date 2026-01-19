@@ -143,6 +143,12 @@ outer.right =      4
 [[on-window-detected]]
   if.app-name-regex-substring = 'zathura'
   run = 'move-node-to-workspace 2'
+[[on-window-detected]]
+  if.app-id = 'info.sioyek.sioyek'
+  run = 'move-node-to-workspace 2'
+[[on-window-detected]]
+  if.app-id = 'net.sourceforge.skim-app.skim'
+  run = 'move-node-to-workspace 2'
 
 # 3. Open (IDEs, etc.)
 [[on-window-detected]]
