@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+# Clean docker
+docker image prune -af
+docker system prune -f
+
+# Clean brew
+brew cleanup --scrub --prune=all

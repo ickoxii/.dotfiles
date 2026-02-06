@@ -26,7 +26,7 @@ git stash
 git checkout main
 git fetch --all && git pull origin main
 
-Perhaps bad if I have not committed/pushed changes in my current branch before merging
+# Perhaps bad if I have not committed/pushed changes in my current branch before merging
 for branch in ${branches}; do
     echo -e "\033[0;34m>>Checking out into ${branch}\033[0m"
     git checkout ${branch}

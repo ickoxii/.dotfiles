@@ -60,3 +60,7 @@ fi
 # Python
 export PYTHON_HOME="/opt/homebrew/opt/python"
 export PATH="${PYTHON_HOME}/libexec/bin:${PATH}"
+
+# Conda
+# export CONDA_HOME="/opt/miniconda3"
+# export PATH="${CONDA_HOME}/bin:${PATH}"

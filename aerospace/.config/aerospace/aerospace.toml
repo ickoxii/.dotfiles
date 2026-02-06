@@ -221,9 +221,6 @@ outer.right =      4
   if.app-id = 'com.apple.MobileSMS'
   run = 'move-node-to-workspace 6'
 [[on-window-detected]]
-  if.app-id = 'com.hnc.Discord'
-  run = 'move-node-to-workspace 6'
-[[on-window-detected]]
   if.app-id = 'com.microsoft.teams2'
   run = 'move-node-to-workspace 6'
 [[on-window-detected]]
@@ -235,6 +232,11 @@ outer.right =      4
 [[on-window-detected]]
   if.app-id = 'us.zoom.xos' # zoom
   run = 'move-node-to-workspace 8'
+
+# 7. messaging
+[[on-window-detected]]
+  if.app-id = 'com.hnc.Discord'
+  run = 'move-node-to-workspace 7'
 
 # 8. Steam
 [[on-window-detected]]
