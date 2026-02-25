@@ -2,8 +2,6 @@
 # Plugins, keybinds, prompts, etc.
 # https://unix.stackexchange.com/questions/71253/what-should-shouldnt-go-in-zshenv-zshrc-zlogin-zprofile-zlogout
 
-export TMPDIR=$(getconf DARWIN_USER_TEMP_DIR)
-
 if [[ -n "$container" ]] || [[ -n "$DOCKER_CONTAINER" ]] || [[ "$ZSH_MINIMAL" == "1" ]]; then
   source ~/.config/zsh/.zshrc.minimal
   return
@@ -17,19 +15,26 @@ fi
 #   eval "$(gdircolors -b ~/.dircolors)"
 # fi
 set -o vi
+unsetopt BEEP
+unsetopt LIST_BEEP
 
 # init fzf
 if command -v fzf &>/dev/null; then
   eval "$(fzf --zsh)"
 fi
 
-# init pyenv
-if command -v pyenv &>/dev/null; then
-  eval "$(pyenv init -)"
-  eval "$(pyenv virtualenv-init -)"
-fi
+# gcloud shell completion (interactive only)
+[[ -f '/Users/ickoxii/google-cloud-sdk/completion.zsh.inc' ]] && source '/Users/ickoxii/google-cloud-sdk/completion.zsh.inc'
 
-export PATH
+# init pyenv (lazy-loaded to avoid startup overhead)
+if [[ -d "${PYENV_ROOT}/bin" ]]; then
+  pyenv() {
+    unfunction pyenv
+    eval "$(command pyenv init -)"
+    eval "$(command pyenv virtualenv-init -)"
+    pyenv "$@"
+  }
+fi
 
 # Set directory for zinit and plugins
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
@@ -49,8 +54,8 @@ source "${ZINIT_HOME}/zinit.zsh"
 #   i would love for this to be in ~/.zshenv but i have a sneaking
 #   suspicion that `zinit.zsh` overwrites the fpath.
 #
-export BREW_SHARE="/opt/homebrew/share"
-export BREW_ZSF="/opt/homebrew/share/zsh/site-functions"
+BREW_SHARE="/opt/homebrew/share"
+BREW_ZSF="/opt/homebrew/share/zsh/site-functions"
 export FPATH="${BREW_SHARE}:${BREW_ZSF}:${FPATH}"
 
 # Get prompt
@@ -72,8 +77,13 @@ zinit snippet OMZP::safe-paste
 # zinit snippet OMZP::macos
 # zinit snippet OMZP::yarn
 
-# Load completions
-autoload -U compinit && compinit
+# Load completions (only rebuild dump once per day)
+autoload -Uz compinit
+if [[ -n ${ZDOTDIR}/.zcompdump(#qN.mh+24) ]]; then
+  compinit
+else
+  compinit -C
+fi
 
 # Reloads all cached completions? idk man recommended by the friendly manual
 zinit cdreplay -q
@@ -126,18 +136,23 @@ setopt hist_find_no_dups
 [[ -f ~/.config/zsh/.zaliases ]] && source ~/.config/zsh/.zaliases
 
 
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/opt/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/opt/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "/opt/miniconda3/etc/profile.d/conda.sh"
+# >>> conda initialize (lazy-loaded to avoid startup overhead) >>>
+if [[ -f "/opt/miniconda3/etc/profile.d/conda.sh" ]] || [[ -d "/opt/miniconda3/bin" ]]; then
+  conda() {
+    unfunction conda
+    __conda_setup="$('/opt/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+    if [ $? -eq 0 ]; then
+      eval "$__conda_setup"
     else
+      if [ -f "/opt/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/opt/miniconda3/etc/profile.d/conda.sh"
+      else
         export PATH="/opt/miniconda3/bin:$PATH"
+      fi
     fi
+    unset __conda_setup
+    conda "$@"
+  }
 fi
-unset __conda_setup
 # <<< conda initialize <<<
 

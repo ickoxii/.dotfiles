@@ -5,9 +5,6 @@
 # ⎧                                        ⎫
 # ⎨  Variables, Evals, Paths               ⎬
 # ⎩                                        ⎭
-unsetopt BEEP
-unsetopt LIST_BEEP
-
 # LSCOLORS is BSD standard. used for built ins like ls
 # comment this out (here, in the gdircolors in zshrc, and at the end of zshrc)
 # export LSCOLORS="gxfxexahbxegedabagdxad"
@@ -22,6 +19,12 @@ export BROWSER="firefox"
 export ZDOTDIR=${HOME}/.config/zsh
 export XDG_CONFIG_HOME=${HOME}/.config
 export PAGER=less
+
+# TMPDIR must be available to all processes, not just interactive shells
+export TMPDIR=$(getconf DARWIN_USER_TEMP_DIR)
+
+# pyenv root must be in .zshenv so non-login and non-interactive shells can find it
+export PYENV_ROOT="${HOME}/.pyenv"
 
 # My scripts
 export PATH="${HOME}/.local/bin:${PATH}"
@@ -50,8 +53,6 @@ if [ -d "${HOME}/packages/google-cloud-sdk" ]; then
   # update PATH for google cloud sdk
   [[ -f '/Users/ickoxii/google-cloud-sdk/path.zsh.inc' ]] && source '/Users/ickoxii/google-cloud-sdk/path.zsh.inc'
 
-  # shell command completion for gcloud
-  [[ -f '/Users/ickoxii/google-cloud-sdk/completion.zsh.inc' ]] && source '/Users/ickoxii/google-cloud-sdk/completion.zsh.inc'
 fi
 
 # DEL
