@@ -169,6 +169,9 @@ outer.right =      4
 [[on-window-detected]]
   if.app-id = 'org.gimp.gimp'
   run = ['move-node-to-workspace 3']
+[[on-window-detected]]
+  if.app-id = 'md.obsidian'
+  run = ['move-node-to-workspace 3']
 
 # 4. Browsers - Personal
 [[on-window-detected]]
