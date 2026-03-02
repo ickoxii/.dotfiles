@@ -3,8 +3,8 @@
 # ⎩                                        ⎭
 after-login-command = []
 after-startup-command = [
-    'exec-and-forget borders active_color=0xff5E548E inactive_color=0xff555555 width=4.0',
-    'exec-and-forget sketchybar'
+  'exec-and-forget borders active_color=0xff5E548E inactive_color=0xff555555 width=4.0',
+  'exec-and-forget sketchybar'
 ]
 start-at-login = true
 
@@ -12,7 +12,7 @@ start-at-login = true
 # ⎨  OnWorkspaceChange execs               ⎬
 # ⎩                                        ⎭
 exec-on-workspace-change = ['/bin/bash', '-c',
-    'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE'
+  'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE'
 ]
 
 # ⎧                                        ⎫
@@ -40,247 +40,264 @@ outer.right =      4
 # ⎨  Main Mode Keymaps                     ⎬
 # ⎩                                        ⎭
 [mode.main.binding]
-  # util
-  alt-shift-semicolon = 'mode service'
-  cmd-ctrl-r = ['reload-config', 'mode main']
+# util
+alt-shift-semicolon = 'mode service'
+cmd-ctrl-r = ['reload-config', 'mode main']
 
-  # toggle between splits
-  cmd-slash = 'layout tiles horizontal vertical'
+# toggle between splits
+cmd-slash = 'layout tiles horizontal vertical'
 
-  # focus a tile
-  cmd-h = 'focus left'
-  cmd-j = 'focus down'
-  cmd-k = 'focus up'
-  cmd-l = 'focus right'
+# focus a tile
+cmd-h = 'focus left'
+cmd-j = 'focus down'
+cmd-k = 'focus up'
+cmd-l = 'focus right'
 
-  # move a tile
-  cmd-shift-h = 'move left'
-  cmd-shift-j = 'move down'
-  cmd-shift-k = 'move up'
-  cmd-shift-l = 'move right'
+# move a tile
+cmd-shift-h = 'move left'
+cmd-shift-j = 'move down'
+cmd-shift-k = 'move up'
+cmd-shift-l = 'move right'
 
-  # join tiles into a parent container
-  cmd-ctrl-h = ['join-with left', 'mode main']
-  cmd-ctrl-j = ['join-with down', 'mode main']
-  cmd-ctrl-k = ['join-with up', 'mode main']
-  cmd-ctrl-l = ['join-with right', 'mode main']
+# join tiles into a parent container
+cmd-ctrl-h = ['join-with left', 'mode main']
+cmd-ctrl-j = ['join-with down', 'mode main']
+cmd-ctrl-k = ['join-with up', 'mode main']
+cmd-ctrl-l = ['join-with right', 'mode main']
 
-  # window resizing
-  ctrl-minus = 'resize smart -50'
-  ctrl-equal = 'resize smart +50'
-  ctrl-enter = 'balance-sizes'
-  alt-f = 'fullscreen'
+# window resizing
+ctrl-minus = 'resize smart -50'
+ctrl-equal = 'resize smart +50'
+ctrl-enter = 'balance-sizes'
+alt-f = 'fullscreen'
 
-  # switch to workspaces
-  cmd-1 = 'workspace 1'  # main: browser - work
-  cmd-2 = 'workspace 2'  # main: terminal
-  cmd-3 = 'workspace 3'  # main: code / IDE
-  cmd-4 = 'workspace 4'  # main: browser - fun
-  cmd-5 = 'workspace 5'  # main: workstations: vm's, word
-  cmd-6 = 'workspace 6'  # main: messaging
-  cmd-7 = 'workspace 7'  # main: OPEN
-  cmd-8 = 'workspace 8'  # secondary: steam
-  cmd-9 = 'workspace 9'  # secondary: util - vpn, docker
-  cmd-0 = 'workspace 10' # secondary spotify
+# switch to workspaces
+cmd-1 = 'workspace 1'  # main: browser - work
+cmd-2 = 'workspace 2'  # main: terminal
+cmd-3 = 'workspace 3'  # main: code / IDE
+cmd-4 = 'workspace 4'  # main: browser - fun
+cmd-5 = 'workspace 5'  # main: workstations: vm's, word
+cmd-6 = 'workspace 6'  # main: messaging
+cmd-7 = 'workspace 7'  # main: OPEN
+cmd-8 = 'workspace 8'  # secondary: steam
+cmd-9 = 'workspace 9'  # secondary: util - vpn, docker
+cmd-0 = 'workspace 10' # secondary spotify
 
-  # move app to workspace and switch
-  cmd-ctrl-1 = ['move-node-to-workspace 1',  'workspace 1']
-  cmd-ctrl-2 = ['move-node-to-workspace 2',  'workspace 2']
-  cmd-ctrl-3 = ['move-node-to-workspace 3',  'workspace 3']
-  cmd-ctrl-4 = ['move-node-to-workspace 4',  'workspace 4']
-  cmd-ctrl-5 = ['move-node-to-workspace 5',  'workspace 5']
-  cmd-ctrl-6 = ['move-node-to-workspace 6',  'workspace 6']
-  cmd-ctrl-7 = ['move-node-to-workspace 7',  'workspace 7']
-  cmd-ctrl-8 = ['move-node-to-workspace 8',  'workspace 8']
-  cmd-ctrl-9 = ['move-node-to-workspace 9',  'workspace 9']
-  cmd-ctrl-0 = ['move-node-to-workspace 10', 'workspace 10']
+# move app to workspace and switch
+cmd-ctrl-1 = ['move-node-to-workspace 1',  'workspace 1']
+cmd-ctrl-2 = ['move-node-to-workspace 2',  'workspace 2']
+cmd-ctrl-3 = ['move-node-to-workspace 3',  'workspace 3']
+cmd-ctrl-4 = ['move-node-to-workspace 4',  'workspace 4']
+cmd-ctrl-5 = ['move-node-to-workspace 5',  'workspace 5']
+cmd-ctrl-6 = ['move-node-to-workspace 6',  'workspace 6']
+cmd-ctrl-7 = ['move-node-to-workspace 7',  'workspace 7']
+cmd-ctrl-8 = ['move-node-to-workspace 8',  'workspace 8']
+cmd-ctrl-9 = ['move-node-to-workspace 9',  'workspace 9']
+cmd-ctrl-0 = ['move-node-to-workspace 10', 'workspace 10']
 
-  # open applications
-  ctrl-cmd-f = '''exec-and-forget open -na Firefox'''
-  ctrl-cmd-g = '''exec-and-forget open -na Ghostty'''
-  ctrl-cmd-d = '''exec-and-forget open -na Docker\ Desktop'''
+# open applications
+ctrl-cmd-f = '''exec-and-forget open -na Firefox'''
+ctrl-cmd-g = '''exec-and-forget open -na Ghostty'''
+ctrl-cmd-d = '''exec-and-forget open -na Docker\ Desktop'''
 
 # ⎧                                        ⎫
 # ⎨  Service Mode Keymaps                  ⎬
 # ⎩                                        ⎭
 [mode.service.binding]
-  esc = 'mode main'
-  r = ['flatten-workspace-tree', 'mode main'] # reset layout
-  f = ['layout floating tiling', 'mode main'] # Toggle between floating and tiling layout
-  backspace = ['close-all-windows-but-current', 'mode main']
+esc = 'mode main'
+r = ['flatten-workspace-tree', 'mode main'] # reset layout
+f = ['layout floating tiling', 'mode main'] # Toggle between floating and tiling layout
+backspace = ['close-all-windows-but-current', 'mode main']
 
 # ⎧                                        ⎫
 # ⎨  App Specific Workspaces               ⎬
 # ⎩                                        ⎭
 # assign workspaces to monitors
 [workspace-to-monitor-force-assignment]
-  1 =  'DELL*|main'
-  2 =  'DELL*|main'
-  3 =  'DELL*|main'
-  4 =  'DELL*|main'
-  5 =  'DELL*|main'
-  6 =  'DELL*|main'
-  7 =  'built-in*|secondary'
-  8 =  'built-in*|secondary'
-  9 =  'built-in*|secondary'
-  10 = 'built-in*|secondary'
+1 =  'DELL*|main'
+2 =  'DELL*|main'
+3 =  'DELL*|main'
+4 =  'DELL*|main'
+5 =  'DELL*|main'
+6 =  'DELL*|main'
+7 =  'built-in*|secondary'
+8 =  'built-in*|secondary'
+9 =  'built-in*|secondary'
+10 = 'built-in*|secondary'
 
 # 1. Browsers - Work
 [[on-window-detected]]
-  if.app-id = 'org.mozilla.firefox'
-  run = 'move-node-to-workspace 1'
+if.app-id = 'org.mozilla.firefox'
+run = 'move-node-to-workspace 1'
 
 # 2. Terminals
 [[on-window-detected]]
-  if.app-id = 'net.kovidgoyal.kitty'
-  run = 'move-node-to-workspace 2'
+if.app-id = 'net.kovidgoyal.kitty'
+run = 'move-node-to-workspace 2'
+
 [[on-window-detected]]
-  if.app-id = 'com.apple.Terminal'
-  run = 'move-node-to-workspace 2'
+if.app-id = 'com.apple.Terminal'
+run = 'move-node-to-workspace 2'
+
 [[on-window-detected]]
-  if.app-id = 'com.mitchellh.ghostty'
-  run = 'move-node-to-workspace 2'
+if.app-id = 'com.mitchellh.ghostty'
+run = 'move-node-to-workspace 2'
+
 [[on-window-detected]]
-  if.app-name-regex-substring = 'zathura'
-  run = 'move-node-to-workspace 2'
+if.app-name-regex-substring = 'zathura'
+run = 'move-node-to-workspace 2'
+
 [[on-window-detected]]
-  if.app-id = 'info.sioyek.sioyek'
-  run = 'move-node-to-workspace 2'
+if.app-id = 'info.sioyek.sioyek'
+run = 'move-node-to-workspace 2'
+
 [[on-window-detected]]
-  if.app-id = 'net.sourceforge.skim-app.skim'
-  run = 'move-node-to-workspace 2'
+if.app-id = 'net.sourceforge.skim-app.skim'
+run = 'move-node-to-workspace 2'
 
 # 3. Open (IDEs, etc.)
 [[on-window-detected]]
-  if.app-id = 'com.jetbrains.rustrover'
-  run = 'move-node-to-workspace 3'
+if.app-id = 'com.jetbrains.rustrover'
+run = 'move-node-to-workspace 3'
+
 [[on-window-detected]]
-  if.app-id = 'com.jetbrains.intellij'
-  run = 'move-node-to-workspace 3'
+if.app-id = 'com.jetbrains.intellij'
+run = 'move-node-to-workspace 3'
+
 [[on-window-detected]]
-  if.app-id = 'com.microsoft.VSCode'
-  run = 'move-node-to-workspace 3'
+if.app-id = 'com.microsoft.VSCode'
+run = 'move-node-to-workspace 3'
+
 [[on-window-detected]]
-  if.app-id = 'com.jetbrains.cwm.guest-EAP' # jetbrains devcontainer
-  run = ['layout floating', 'move-node-to-workspace 3']
+if.app-id = 'com.jetbrains.cwm.guest-EAP' # jetbrains devcontainer
+run = ['layout floating', 'move-node-to-workspace 3']
+
 [[on-window-detected]]
-  if.app-id = 'epp.package.committers' # eclipse
-  run = ['move-node-to-workspace 3']
+if.app-id = 'epp.package.committers' # eclipse
+run = ['move-node-to-workspace 3']
+
 [[on-window-detected]]
-  if.app-id = 'org.gimp.gimp'
-  run = ['move-node-to-workspace 3']
+if.app-id = 'org.gimp.gimp'
+run = ['move-node-to-workspace 3']
+
 [[on-window-detected]]
-  if.app-id = 'md.obsidian'
-  run = ['move-node-to-workspace 3']
+if.app-id = 'md.obsidian'
+run = ['move-node-to-workspace 3']
 
 # 4. Browsers - Personal
 [[on-window-detected]]
-  if.app-id = 'com.google.Chrome'
-  run = 'move-node-to-workspace 4'
+if.app-id = 'com.google.Chrome'
+run = 'move-node-to-workspace 4'
+
 [[on-window-detected]]
-  if.app-name-regex-substring = 'deadcells|Silksong'
-  run = [
-    'layout floating',
-    'move-node-to-workspace 4',
-  ]
+if.app-name-regex-substring = 'deadcells|Silksong'
+run = [
+  'layout floating',
+  'move-node-to-workspace 4',
+]
+
 [[on-window-detected]]
-  if.app-id = 'com.celeste'
-  run = 'move-node-to-workspace 4'
-# [[on-window-detected]]
-#   if.app-name-regex-substring = '.exe'
-#   run = 'move-node-to-workspace 4'
+if.app-id = 'com.celeste'
+run = 'move-node-to-workspace 4'
+
 [[on-window-detected]]
-  if.app-id = 'steamwebhelper.exe'
-  run = 'move-node-to-workspace 4'
+if.app-id = 'steamwebhelper.exe'
+run = 'move-node-to-workspace 4'
+
 [[on-window-detected]]
-  if.app-id = 'Risk of Rain 2.exe'
-  run = 'move-node-to-workspace 4'
+if.app-id = 'Risk of Rain 2.exe'
+run = 'move-node-to-workspace 4'
+
 [[on-window-detected]]
-  if.app-id = 'Risk of Rain Returns.exe'
-  run = 'move-node-to-workspace 4'
+if.app-id = 'Risk of Rain Returns.exe'
+run = 'move-node-to-workspace 4'
 
 # 5. Workstations
 [[on-window-detected]]
-  if.app-id = 'org.virtualbox.app.VirtualBox'
-  run = 'move-node-to-workspace 5'
+if.app-id = 'org.virtualbox.app.VirtualBox'
+run = 'move-node-to-workspace 5'
+
 [[on-window-detected]]
-  if.app-id = 'com.utmapp.UTM'
-  run = 'move-node-to-workspace 5'
+if.app-id = 'com.utmapp.UTM'
+run = 'move-node-to-workspace 5'
+
 [[on-window-detected]]
-  if.app-id = 'com.microsoft.Word'
-  run = 'move-node-to-workspace 5'
+if.app-id = 'com.microsoft.Word'
+run = 'move-node-to-workspace 5'
+
 [[on-window-detected]]
-  if.app-name-regex-substring = 'net.java.openjdk.java'
-  run = 'move-node-to-workspace 5'
+if.app-name-regex-substring = 'net.java.openjdk.java'
+run = 'move-node-to-workspace 5'
+
 [[on-window-detected]]
-  if.app-id = 'org.wireshark.Wireshark'
-  run = 'move-node-to-workspace 5'
+if.app-id = 'org.wireshark.Wireshark'
+run = 'move-node-to-workspace 5'
+
 [[on-window-detected]]
-  if.app-id = 'com.postmanlabs.mac'
-  run = 'move-node-to-workspace 5'
+if.app-id = 'com.postmanlabs.mac'
+run = 'move-node-to-workspace 5'
 
 # 6. Messaging
-[[on-window-detected]]
-  if.app-id = 'com.apple.MobileSMS'
-  run = 'move-node-to-workspace 6'
-[[on-window-detected]]
-  if.app-id = 'com.microsoft.teams2'
-  run = 'move-node-to-workspace 6'
-[[on-window-detected]]
-  if.app-id = 'com.tinyspec.slackmacgap'
-  run = 'move-node-to-workspace 6'
-[[on-window-detected]]
-  if.app-id = 'com.facebook.archon' # Messenger
-  run = 'move-node-to-workspace 6'
-[[on-window-detected]]
-  if.app-id = 'us.zoom.xos' # zoom
-  run = 'move-node-to-workspace 8'
 
 # 7. messaging
 [[on-window-detected]]
-  if.app-id = 'com.hnc.Discord'
-  run = 'move-node-to-workspace 7'
+if.app-id = 'com.hnc.Discord'
+run = 'move-node-to-workspace 7'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.MobileSMS'
+run = 'move-node-to-workspace 7'
+
+[[on-window-detected]]
+if.app-id = 'com.microsoft.teams2'
+run = 'move-node-to-workspace 7'
+
+[[on-window-detected]]
+if.app-id = 'com.tinyspec.slackmacgap'
+run = 'move-node-to-workspace 7'
+
+[[on-window-detected]]
+if.app-id = 'com.facebook.archon' # Messenger
+run = 'move-node-to-workspace 7'
+
+[[on-window-detected]]
+if.app-id = 'us.zoom.xos' # zoom
+run = 'move-node-to-workspace 7'
 
 # 8. Steam
 [[on-window-detected]]
-  if.app-id = 'com.valvesoftware.steam'
-  run = 'move-node-to-workspace 8'
+if.app-id = 'com.valvesoftware.steam'
+run = 'move-node-to-workspace 8'
+
 [[on-window-detected]]
-  if.app-id = 'com.valvesoftware.steam.helper'
-  run = 'move-node-to-workspace 8'
+if.app-id = 'com.valvesoftware.steam.helper'
+run = 'move-node-to-workspace 8'
 
 # 9. Util -- VPN, docker
 [[on-window-detected]]
-  if.app-id = 'com.nordvpn.macos'
-  run = 'move-node-to-workspace 9'
+if.app-id = 'com.nordvpn.macos'
+run = 'move-node-to-workspace 9'
+
 [[on-window-detected]]
-  if.app-id = 'com.electron.dockerdesktop'
-  run = 'move-node-to-workspace 9'
+if.app-id = 'com.electron.dockerdesktop'
+run = 'move-node-to-workspace 9'
+
+[[on-window-detected]]
+if.app-id = 'com.bitwarden.desktop'
+run = 'move-node-to-workspace 9'
 
 # 10. Music
 [[on-window-detected]]
-  if.app-id = 'com.spotify.client'
-  run = 'move-node-to-workspace 10'
+if.app-id = 'com.spotify.client'
+run = 'move-node-to-workspace 10'
+
 [[on-window-detected]]
-  if.app-name-regex-substring = 'YT Music'
-  run = 'move-node-to-workspace 10'
+if.app-name-regex-substring = 'YT Music'
+run = 'move-node-to-workspace 10'
 
 # ⎧                                        ⎫
 # ⎨  Ignored Apps                          ⎬
 # ⎩                                        ⎭
-# [[on-window-detected]]
-#   if.app-id = 'com.apple.finder'
-#   run = 'layout floating'
-# [[on-window-detected]]
-#   if.app-id = 'com.apple.systempreferences'
-#   run = 'layout floating'
-# [[on-window-detected]]
-#   if.app-id = 'com.apple.ScreenContinuity'
-#   run = 'layout floating'
-# [[on-window-detected]]
-#   if.app-id = 'net.rafaelconde.Hand-Mirror'
-#   run = 'layout floating'
-
 # Catch-all
 [[on-window-detected]]
-  run = 'layout floating'
+run = 'layout floating'
