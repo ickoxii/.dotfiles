@@ -125,12 +125,16 @@ backspace = ['close-all-windows-but-current', 'mode main']
 9 =  'built-in*|secondary'
 10 = 'built-in*|secondary'
 
-# 1. Browsers - Work
+# ⎧                                        ⎫
+# ⎨  1. Firefox                            ⎬
+# ⎩                                        ⎭
 [[on-window-detected]]
 if.app-id = 'org.mozilla.firefox'
 run = 'move-node-to-workspace 1'
 
-# 2. Terminals
+# ⎧                                        ⎫
+# ⎨  2. Terminal Emulators                 ⎬
+# ⎩                                        ⎭
 [[on-window-detected]]
 if.app-id = 'net.kovidgoyal.kitty'
 run = 'move-node-to-workspace 2'
@@ -155,7 +159,9 @@ run = 'move-node-to-workspace 2'
 if.app-id = 'net.sourceforge.skim-app.skim'
 run = 'move-node-to-workspace 2'
 
-# 3. Open (IDEs, etc.)
+# ⎧                                        ⎫
+# ⎨  3. Development (IDEs)                 ⎬
+# ⎩                                        ⎭
 [[on-window-detected]]
 if.app-id = 'com.jetbrains.rustrover'
 run = 'move-node-to-workspace 3'
@@ -184,35 +190,16 @@ run = ['move-node-to-workspace 3']
 if.app-id = 'md.obsidian'
 run = ['move-node-to-workspace 3']
 
-# 4. Browsers - Personal
+# ⎧                                        ⎫
+# ⎨  4. Personal Browser, Games            ⎬
+# ⎩                                        ⎭
 [[on-window-detected]]
 if.app-id = 'com.google.Chrome'
 run = 'move-node-to-workspace 4'
 
-[[on-window-detected]]
-if.app-name-regex-substring = 'deadcells|Silksong'
-run = [
-  'layout floating',
-  'move-node-to-workspace 4',
-]
-
-[[on-window-detected]]
-if.app-id = 'com.celeste'
-run = 'move-node-to-workspace 4'
-
-[[on-window-detected]]
-if.app-id = 'steamwebhelper.exe'
-run = 'move-node-to-workspace 4'
-
-[[on-window-detected]]
-if.app-id = 'Risk of Rain 2.exe'
-run = 'move-node-to-workspace 4'
-
-[[on-window-detected]]
-if.app-id = 'Risk of Rain Returns.exe'
-run = 'move-node-to-workspace 4'
-
-# 5. Workstations
+# ⎧                                        ⎫
+# ⎨  5. Workstations                       ⎬
+# ⎩                                        ⎭
 [[on-window-detected]]
 if.app-id = 'org.virtualbox.app.VirtualBox'
 run = 'move-node-to-workspace 5'
@@ -237,9 +224,17 @@ run = 'move-node-to-workspace 5'
 if.app-id = 'com.postmanlabs.mac'
 run = 'move-node-to-workspace 5'
 
-# 6. Messaging
+[[on-window-detected]]
+if.app-id = 'com.oracle.java.java'
+run = 'move-node-to-workspace 5'
 
-# 7. messaging
+# ⎧                                        ⎫
+# ⎨  6. Free                               ⎬
+# ⎩                                        ⎭
+
+# ⎧                                        ⎫
+# ⎨  7. Messaging                          ⎬
+# ⎩                                        ⎭
 [[on-window-detected]]
 if.app-id = 'com.hnc.Discord'
 run = 'move-node-to-workspace 7'
@@ -264,7 +259,9 @@ run = 'move-node-to-workspace 7'
 if.app-id = 'us.zoom.xos' # zoom
 run = 'move-node-to-workspace 7'
 
-# 8. Steam
+# ⎧                                        ⎫
+# ⎨  8. Steam                              ⎬
+# ⎩                                        ⎭
 [[on-window-detected]]
 if.app-id = 'com.valvesoftware.steam'
 run = 'move-node-to-workspace 8'
@@ -273,7 +270,9 @@ run = 'move-node-to-workspace 8'
 if.app-id = 'com.valvesoftware.steam.helper'
 run = 'move-node-to-workspace 8'
 
-# 9. Util -- VPN, docker
+# ⎧                                        ⎫
+# ⎨  9. Util -- VPN, docker                ⎬
+# ⎩                                        ⎭
 [[on-window-detected]]
 if.app-id = 'com.nordvpn.macos'
 run = 'move-node-to-workspace 9'
@@ -282,17 +281,11 @@ run = 'move-node-to-workspace 9'
 if.app-id = 'com.electron.dockerdesktop'
 run = 'move-node-to-workspace 9'
 
-[[on-window-detected]]
-if.app-id = 'com.bitwarden.desktop'
-run = 'move-node-to-workspace 9'
-
-# 10. Music
+# ⎧                                        ⎫
+# ⎨  10. Music                             ⎬
+# ⎩                                        ⎭
 [[on-window-detected]]
 if.app-id = 'com.spotify.client'
-run = 'move-node-to-workspace 10'
-
-[[on-window-detected]]
-if.app-name-regex-substring = 'YT Music'
 run = 'move-node-to-workspace 10'
 
 # ⎧                                        ⎫
