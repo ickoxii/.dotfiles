@@ -37,9 +37,12 @@ export PATH="$GOPATH/bin:$PATH"
 export M2_HOME="${HOME}/packages/apache-maven-3.9.6"
 export PATH="${M2_HOME}/bin:${PATH}"
 
-# JDK
-export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk-22.jdk/Contents/Home"
-export PATH="${JAVA_HOME}/bin:${PATH}"
+# JDK -- using SDKMAN now
+# export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk-21.jdk/Contents/Home"
+# export PATH="${JAVA_HOME}/bin:${PATH}"
+
+# SDKMan
+export SDKMAN_HOME="${HOME}/.sdkman"
 
 # Apache Derby
 # export DERBY_HOME="${HOME}/packages/derby10"
@@ -54,9 +57,6 @@ if [ -d "${HOME}/packages/google-cloud-sdk" ]; then
   [[ -f '/Users/ickoxii/google-cloud-sdk/path.zsh.inc' ]] && source '/Users/ickoxii/google-cloud-sdk/path.zsh.inc'
 
 fi
-
-# DEL
-
 
 # Python
 export PYTHON_HOME="/opt/homebrew/opt/python"

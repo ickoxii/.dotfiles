@@ -33,27 +33,25 @@ alias vim='nvim'
 
 # docker
 alias ubuntu='docker run -it ubuntu bash'
-# docker prune all
 alias dpa='docker image prune -af && docker system prune -f'
 alias dip='docker inspect -f "{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}"'
 
 # pass
 alias bp='pass show -c edu/baylor/email'
 
-# tmux
 alias _tmux="if [ $(command -v tmux-direrizer) ]; then tmux-direrizer; else echo 'Is tmux-direrizer in ~/.local/bin and is ~/.local/bin on your path?' >&2; fi"
 alias _t="_tmux"
-# attach to session
 if [[ "$TERM" = "tmux-256color" ]]; then
   alias tas='tmux switch-client -t $(tmux ls | tr ":" " " | awk "{print \$1}" | fzf)'
 else
   alias tas='tmux attach -t $(tmux ls | tr ":" " " | awk "{print \$1}" | fzf)'
 fi
-# kill target session
 alias tkst='tmux kill-session -t'
-# kill everything
 alias tksv='tmux kill-server'
 alias tls='tmux ls'
+
+# Java
+alias clean-eclipse='find . \( -type f \( -name ".classpath" -o -name ".factorypath" -o -name ".project" \) -o -type d -name ".settings" \) -exec rm -rf {} +'
 
 # git
 alias gb='git branch'
@@ -66,7 +64,3 @@ alias gp='git pull'
 alias gr='git remote -v'
 alias grsh='git reset --soft HEAD~1'
 alias gst='git status'
-
-# gcloud
-alias ssh-server-prod='gcloud compute ssh --zone "us-central1-c" "ascii-server-prod" --project "engaged-truth-457223-j6" --account "iben.ixi@gmail.com"'
-alias ssh-server-dev='gcloud compute ssh --zone "us-central1-f" "ascii-server-dev" --project "engaged-truth-457223-j6" --account "iben.ixi@gmail.com"'
