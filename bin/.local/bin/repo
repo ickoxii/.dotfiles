@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+line=$(git remote -v | head -n1 | tr ':/.' ' ')
+owner=$(awk '{print $4}' <(echo $line))
+repo=$(awk '{print $5}' <(echo $line))
+
+open "https://github.com/${owner}/${repo}"
