@@ -1,0 +1,21 @@
+root = true
+
+[*]
+charset = utf-8
+trim_trailing_whitespace = true
+end_of_line = lf
+insert_final_newline = true
+
+[*.java]
+indent_size = 2
+indent_style = space
+# jetbrains-specific property
+ij_continuation_indent_size = 4
+
+[*.{xml,sh}]
+indent_size = 2
+indent_style = space
+
+[Dockerfile]
+indent_size = 2
+indent_style = space
