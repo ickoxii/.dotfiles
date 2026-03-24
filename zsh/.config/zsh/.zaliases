@@ -10,6 +10,9 @@ alias kwp='killall -9 wine64-preloader'
 alias rover='open -a RustRover'
 alias word='open -a Microsoft\ Word'
 
+# macOS opts
+alias toggle_menu='osascript -e "tell application \"System Events\" to set autohide menu bar of dock preferences to not (autohide menu bar of dock preferences)"'
+
 # kitty
 alias whiskers='rm /var/folders/*/*/*/com.apple.dock.iconcache; killall Dock'
 alias themes='kitty +kitten themes'

@@ -179,6 +179,21 @@ mvn() {
   command mvn "$@"
 }
 
+# Toggle menu bar to use with steam
+toggle_game_mode() {
+    if pgrep -x "AeroSpace" > /dev/null; then
+        # Set Menu Bar to ALWAYS SHOW
+        osascript -e 'tell application "System Events" to set autohide menu bar of dock preferences to false'
+        # Gracefully tell AeroSpace to quit
+        osascript -e 'tell application "AeroSpace" to quit'
+    else
+        # Set Menu Bar to AUTO-HIDE
+        osascript -e 'tell application "System Events" to set autohide menu bar of dock preferences to true'
+        # Open AeroSpace
+        open -a "AeroSpace"
+    fi
+}
+
 # THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="${SDKMAN_HOME}"
 [[ -s "${SDKMAN_HOME}/bin/sdkman-init.sh" ]] && source "${SDKMAN_HOME}/bin/sdkman-init.sh"
