@@ -1,22 +1,3 @@
-# file: .bash_profile
-# author: Icko Iben
-# course: CSI 3336
-# due date: 09/08/2024
-#
-# date modified:        11/09/2024
-#   * git branch added to prompt
-# date modified:        09/07/2024
-#   * Added pre-file comment
-#   * not able to turn off error bell on this machine
-# date modified:        09/05/2024
-#   * File created
-#   * Set PS1
-#   * Add ~/bin to path
-#   * Set PRINTER variable
-#   * Source aliases
-#   * Turn off error bell
-
-
 [ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"   # Package manager for Rust
 
 alias ls='ls --color=auto'
