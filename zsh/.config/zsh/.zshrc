@@ -135,6 +135,8 @@ setopt hist_find_no_dups
 # Source aliases
 [[ -f ~/.config/zsh/.zaliases ]] && source ~/.config/zsh/.zaliases
 
+# Source docker completions
+source <(docker completion zsh)
 
 # >>> conda initialize (lazy-loaded to avoid startup overhead) >>>
 if [[ -f "/opt/miniconda3/etc/profile.d/conda.sh" ]] || [[ -d "/opt/miniconda3/bin" ]]; then
@@ -192,6 +194,27 @@ toggle_game_mode() {
         # Open AeroSpace
         open -a "AeroSpace"
     fi
+}
+
+# Build rust dockerfile with current directory mounted as volume
+ubuntu() {
+    local DOCKERFILE_PATH="/Users/ickoxii/.local/templates/docker/ubuntu/rust.Dockerfile"
+    local CONTEXT_DIR=$(dirname "$DOCKERFILE_PATH")
+    local IMAGE_NAME="ubuntu-rust-proto"
+
+    # 1. Build the image (uses cache if available, pulls if missing)
+    docker build -t "$IMAGE_NAME" -f "$DOCKERFILE_PATH" "$CONTEXT_DIR"
+
+    # 2. Run the container with the current directory mounted
+    # --rm flag removes a container on exit
+    # docker run -it --rm \
+    #     -v "$PWD":/work \
+    #     -w /work \
+    #     "$IMAGE_NAME"
+    docker run -dit \
+        -v "$PWD":/work \
+        -w /work \
+        "$IMAGE_NAME"
 }
 
 # THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
