@@ -162,7 +162,7 @@ fi
 # Smart Maven Wrapper
 mvn() {
   # 1. Only act if we are in the spring work directory
-  if [[ "$PWD" == "$HOME/work/spring/"* ]]; then
+  if [[ "$PWD" == "$HOME/work/spring"* ]]; then
 
     # 2. Check if token is missing OR older than 660 minutes (11 hours)
     # The '-n' check ensures the find command actually returned a result
@@ -174,6 +174,7 @@ mvn() {
     fi
 
     # 3. Export for the current process
+    echo "exporting code artifact token"
     export CODEARTIFACT_AUTH_TOKEN=$(cat ~/.aws_codeartifact_token)
   fi
 

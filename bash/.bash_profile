@@ -22,6 +22,28 @@ export PATH="$PATH:/opt/homebrew/bin"
 export PATH="$PATH:$HOME/bin"
 export PATH="$PATH:$HOME/Library/Python/3.9/bin"
 
+mvn() {
+  # 1. Only act if we are in the spring work directory
+  if [[ "$PWD" == "$HOME/work/spring"* ]]; then
+
+    # 2. Check if token is missing OR older than 660 minutes (11 hours)
+    # The '-n' check ensures the find command actually returned a result
+    if [[ ! -f ~/.aws_codeartifact_token ]] || \
+      find ~/.aws_codeartifact_token -mmin +660 -print -quit 2>/dev/null | grep -q .; then
+      echo "AWS Token expired or missing. Refreshing..."
+      aws codeartifact get-authorization-token \
+      --domain ktechartifacts --domain-owner 356635979126 --region us-east-2 \
+      --query authorizationToken --output text > ~/.aws_codeartifact_token
+    fi
+
+    # 3. Export for the current process
+    export CODEARTIFACT_AUTH_TOKEN=$(<~/.aws_codeartifact_token)
+  fi
+
+  # 4. Run the actual Maven command
+  command mvn "$@"
+}
+
 # >>>> PROMPT >>>>
 parse_git_branch() {
     git rev-parse --abbrev-ref HEAD 2> /dev/null
