@@ -187,6 +187,8 @@ toggle_game_mode() {
     if pgrep -x "AeroSpace" > /dev/null; then
         # Set Menu Bar to ALWAYS SHOW
         osascript -e 'tell application "System Events" to set autohide menu bar of dock preferences to false'
+        # Quit Sketchybar
+        pkill -x sketchybar
         # Gracefully tell AeroSpace to quit
         osascript -e 'tell application "AeroSpace" to quit'
     else
