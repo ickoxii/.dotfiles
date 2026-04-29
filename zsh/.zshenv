@@ -48,16 +48,6 @@ export SDKMAN_HOME="${HOME}/.sdkman"
 # export DERBY_HOME="${HOME}/packages/derby10"
 # export PATH="${DERBY_HOME}/bin:${PATH}"
 
-# Google Cloud CLI
-if [ -d "${HOME}/packages/google-cloud-sdk" ]; then
-  export GCLOUD_HOME="${HOME}/packages/google-cloud-sdk"
-  export PATH="${GCLOUD_HOME}/bin:${PATH}"
-
-  # update PATH for google cloud sdk
-  [[ -f '/Users/ickoxii/google-cloud-sdk/path.zsh.inc' ]] && source '/Users/ickoxii/google-cloud-sdk/path.zsh.inc'
-
-fi
-
 # Python
 export PYTHON_HOME="/opt/homebrew/opt/python"
 export PATH="${PYTHON_HOME}/libexec/bin:${PATH}"

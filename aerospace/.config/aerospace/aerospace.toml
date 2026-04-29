@@ -167,10 +167,6 @@ if.app-id = 'com.jetbrains.rustrover'
 run = 'move-node-to-workspace 3'
 
 [[on-window-detected]]
-if.app-id = 'com.jetbrains.datagrip'
-run = 'move-node-to-workspace 3'
-
-[[on-window-detected]]
 if.app-id = 'com.jetbrains.intellij'
 run = 'move-node-to-workspace 3'
 
@@ -210,6 +206,10 @@ run = 'move-node-to-workspace 4'
 # ⎩                                        ⎭
 [[on-window-detected]]
 if.app-id = 'org.virtualbox.app.VirtualBox'
+run = 'move-node-to-workspace 5'
+
+[[on-window-detected]]
+if.app-id = 'com.jetbrains.datagrip'
 run = 'move-node-to-workspace 5'
 
 [[on-window-detected]]

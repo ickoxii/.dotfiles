@@ -23,9 +23,6 @@ if command -v fzf &>/dev/null; then
   eval "$(fzf --zsh)"
 fi
 
-# gcloud shell completion (interactive only)
-[[ -f '/Users/ickoxii/google-cloud-sdk/completion.zsh.inc' ]] && source '/Users/ickoxii/google-cloud-sdk/completion.zsh.inc'
-
 # init pyenv (lazy-loaded to avoid startup overhead)
 if [[ -d "${PYENV_ROOT}/bin" ]]; then
   pyenv() {
