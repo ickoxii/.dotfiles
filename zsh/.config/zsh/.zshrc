@@ -96,14 +96,15 @@ bindkey '^y' autosuggest-accept # TODO switch to emacs mode?
 bindkey '^n' history-search-forward
 bindkey '^p' history-search-backward
 
-if command -v tmux-sessionizer &> /dev/null && [[ -z $TMUX ]]; then
+if command -v tmux-sessionizer &> /dev/null && [[ $TERM != tmux* ]]; then
   # create zsh widget for tmux-sessionizer
   function _run() {
     BUFFER="tmux-sessionizer"
     zle accept-line
   }
   zle -N _run
-  bindkey '^f' _run;
+  bindkey -M viins '^f' _run
+  bindkey -M vicmd '^f' _run
 fi
 
 # ⎧                                        ⎫
