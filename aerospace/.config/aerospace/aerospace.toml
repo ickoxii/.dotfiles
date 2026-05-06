@@ -136,10 +136,6 @@ run = 'move-node-to-workspace 1'
 # ⎨  2. Terminal Emulators                 ⎬
 # ⎩                                        ⎭
 [[on-window-detected]]
-if.app-id = 'net.kovidgoyal.kitty'
-run = 'move-node-to-workspace 2'
-
-[[on-window-detected]]
 if.app-id = 'com.apple.Terminal'
 run = 'move-node-to-workspace 2'
 
@@ -151,44 +147,12 @@ run = 'move-node-to-workspace 2'
 if.app-name-regex-substring = 'zathura'
 run = 'move-node-to-workspace 2'
 
-[[on-window-detected]]
-if.app-id = 'info.sioyek.sioyek'
-run = 'move-node-to-workspace 2'
-
-[[on-window-detected]]
-if.app-id = 'net.sourceforge.skim-app.skim'
-run = 'move-node-to-workspace 2'
-
 # ⎧                                        ⎫
 # ⎨  3. Development (IDEs)                 ⎬
 # ⎩                                        ⎭
 [[on-window-detected]]
-if.app-id = 'com.jetbrains.rustrover'
-run = 'move-node-to-workspace 3'
-
-[[on-window-detected]]
 if.app-id = 'com.jetbrains.intellij'
 run = 'move-node-to-workspace 3'
-
-[[on-window-detected]]
-if.app-id = 'com.microsoft.VSCode'
-run = 'move-node-to-workspace 3'
-
-[[on-window-detected]]
-if.app-id = 'com.jetbrains.cwm.guest-EAP' # jetbrains devcontainer
-run = ['layout floating', 'move-node-to-workspace 3']
-
-[[on-window-detected]]
-if.app-id = 'epp.package.committers' # eclipse
-run = ['move-node-to-workspace 3']
-
-[[on-window-detected]]
-if.app-id = 'org.gimp.gimp'
-run = ['move-node-to-workspace 3']
-
-[[on-window-detected]]
-if.app-id = 'md.obsidian'
-run = ['move-node-to-workspace 3']
 
 [[on-window-detected]]
 if.app-id = 'com.anthropic.claudefordesktop'
@@ -205,19 +169,7 @@ run = 'move-node-to-workspace 4'
 # ⎨  5. Workstations                       ⎬
 # ⎩                                        ⎭
 [[on-window-detected]]
-if.app-id = 'org.virtualbox.app.VirtualBox'
-run = 'move-node-to-workspace 5'
-
-[[on-window-detected]]
 if.app-id = 'com.jetbrains.datagrip'
-run = 'move-node-to-workspace 5'
-
-[[on-window-detected]]
-if.app-id = 'com.utmapp.UTM'
-run = 'move-node-to-workspace 5'
-
-[[on-window-detected]]
-if.app-name-regex-substring = 'net.java.openjdk.java'
 run = 'move-node-to-workspace 5'
 
 [[on-window-detected]]
@@ -228,6 +180,7 @@ run = 'move-node-to-workspace 5'
 if.app-id = 'com.postmanlabs.mac'
 run = 'move-node-to-workspace 5'
 
+# SQLDeveloper
 [[on-window-detected]]
 if.app-id = 'com.oracle.java.java'
 run = 'move-node-to-workspace 5'
@@ -243,6 +196,10 @@ run = 'move-node-to-workspace 6'
 if.app-id = 'com.microsoft.Excel'
 run = 'move-node-to-workspace 6'
 
+[[on-window-detected]]
+if.app-id = 'md.obsidian'
+run = ['move-node-to-workspace 3']
+
 # ⎧                                        ⎫
 # ⎨  7. Messaging                          ⎬
 # ⎩                                        ⎭
@@ -256,18 +213,6 @@ run = 'move-node-to-workspace 7'
 
 [[on-window-detected]]
 if.app-id = 'com.microsoft.teams2'
-run = 'move-node-to-workspace 7'
-
-[[on-window-detected]]
-if.app-id = 'com.tinyspec.slackmacgap'
-run = 'move-node-to-workspace 7'
-
-[[on-window-detected]]
-if.app-id = 'com.facebook.archon' # Messenger
-run = 'move-node-to-workspace 7'
-
-[[on-window-detected]]
-if.app-id = 'us.zoom.xos' # zoom
 run = 'move-node-to-workspace 7'
 
 # ⎧                                        ⎫
